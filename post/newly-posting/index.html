@@ -255,7 +255,9 @@
     
       <a class="post-taxonomy-tag" href="/tags/data-preparation">data preparation</a>&nbsp;&#47;
     
-      <a class="post-taxonomy-tag" href="/tags/tidy">tidy</a>
+      <a class="post-taxonomy-tag" href="/tags/tidy">tidy</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/excel%EC%9D%BD%EA%B8%B0">Excel읽기</a>
     
   </div>
   
@@ -763,10 +765,24 @@ names( dat )</code></pre>
 ##  9 4211038000 강원도 춘천시 북산면 2008년_계_총 인구수    886
 ## 10 4211039000 강원도 춘천시 동내면 2008년_계_총 인구수  10585
 ## # ... with 5,372 more rows</code></pre>
-<p>마지막으로 위에서 생성한 <code>age_grp</code>열의 값을 <code>separate()</code> 함수를 이용하여 언더스코어(_)를 분리자로 하여 각 열에 배치하는 것으로 주민등록 데이터를 R에서 쉽게 사용할 수 있도록 변환하는 과정이 끝이 난다.</p>
+<p>마지막으로 위에서 생성한 <code>age_grp</code>열의 값을 <code>separate()</code> 함수를 이용하여 언더스코어(_)를 분리자로 하여 각 열에 배치하는 것으로 Excel로 저장된 주민등록 데이터를 R에서 쉽게 사용할 수 있도록 변환하는 과정이 끝이 난다.</p>
 <pre class="r"><code>dat %&gt;%
   gather(key=&quot;age_grp&quot;, value=&quot;pops&quot;, -(1:2)) %&gt;%
-  separate(age_grp, into=c(&quot;year&quot;, &quot;grp&quot;, &quot;age_grp&quot;), sep=&quot;_&quot;) -&gt; dat_lf</code></pre>
+  separate(age_grp, into=c(&quot;year&quot;, &quot;grp&quot;, &quot;age_grp&quot;), sep=&quot;_&quot;)</code></pre>
+<pre><code>## # A tibble: 5,382 x 6
+##    code       region               year   grp   age_grp     pops
+##    &lt;chr&gt;      &lt;chr&gt;                &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt;
+##  1 4211000000 강원도 춘천시        2008년 계    총 인구수 261975
+##  2 4211025000 강원도 춘천시 신북읍 2008년 계    총 인구수   7531
+##  3 4211031000 강원도 춘천시 동면   2008년 계    총 인구수   6025
+##  4 4211032000 강원도 춘천시 동산면 2008년 계    총 인구수   1613
+##  5 4211033000 강원도 춘천시 신동면 2008년 계    총 인구수   2603
+##  6 4211034000 강원도 춘천시 남면   2008년 계    총 인구수   1130
+##  7 4211035000 강원도 춘천시 서면   2008년 계    총 인구수   4151
+##  8 4211036000 강원도 춘천시 사북면 2008년 계    총 인구수   2600
+##  9 4211038000 강원도 춘천시 북산면 2008년 계    총 인구수    886
+## 10 4211039000 강원도 춘천시 동내면 2008년 계    총 인구수  10585
+## # ... with 5,372 more rows</code></pre>
 </div>
 
   
