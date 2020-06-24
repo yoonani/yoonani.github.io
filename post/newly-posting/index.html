@@ -267,6 +267,21 @@
 
   
 
+<div id="TOC">
+<ul>
+<li><a href="#데이터-얻기">데이터 얻기</a><ul>
+<li><a href="#주민등록-인구">주민등록 인구</a></li>
+<li><a href="#데이터-읽기">데이터 읽기</a></li>
+<li><a href="#열-이름-재지정하기">열 이름 재지정하기</a></li>
+<li><a href="#데이터-다시-읽기">데이터 다시 읽기</a></li>
+<li><a href="#변수명-재정의하기">변수명 재정의하기</a></li>
+</ul></li>
+<li><a href="#tidy-데이터">tidy 데이터</a><ul>
+<li><a href="#wide2long">wide2long</a></li>
+<li><a href="#필요한-열-생성하기">필요한 열 생성하기</a></li>
+</ul></li>
+</ul>
+</div>
 
 <div id="데이터-얻기" class="section level2">
 <h2>데이터 얻기</h2>
@@ -746,8 +761,10 @@ names( dat )</code></pre>
 ## [209] &quot;2010년_여_100세 이상&quot;</code></pre>
 </div>
 </div>
-<div id="long-format-데이터-만들기" class="section level2">
-<h2>Long Format 데이터 만들기</h2>
+<div id="tidy-데이터" class="section level2">
+<h2>tidy 데이터</h2>
+<div id="wide2long" class="section level3">
+<h3>wide2long</h3>
 <p><code>tidyverse</code> 패키지 (내의 <code>dplyr</code> 패키지)에서 제공하는 함수 <code>gather()</code>는 wide format 데이터를 long format 데이터로 변환하는 기능을 한다. 이 함수를 이용하여 위의 데이터를 long format 데이터로 변환해 보자.</p>
 <pre class="r"><code>dat %&gt;%
   gather(key=&quot;age_grp&quot;, value=&quot;pops&quot;, -(1:2))</code></pre>
@@ -765,6 +782,9 @@ names( dat )</code></pre>
 ##  9 4211038000 강원도 춘천시 북산면 2008년_계_총 인구수    886
 ## 10 4211039000 강원도 춘천시 동내면 2008년_계_총 인구수  10585
 ## # ... with 5,372 more rows</code></pre>
+</div>
+<div id="필요한-열-생성하기" class="section level3">
+<h3>필요한 열 생성하기</h3>
 <p>마지막으로 위에서 생성한 <code>age_grp</code>열의 값을 <code>separate()</code> 함수를 이용하여 언더스코어(_)를 분리자로 하여 각 열에 배치하는 것으로 Excel로 저장된 주민등록 데이터를 R에서 쉽게 사용할 수 있도록 변환하는 과정이 끝이 난다.</p>
 <pre class="r"><code>dat %&gt;%
   gather(key=&quot;age_grp&quot;, value=&quot;pops&quot;, -(1:2)) %&gt;%
@@ -783,6 +803,7 @@ names( dat )</code></pre>
 ##  9 4211038000 강원도 춘천시 북산면 2008년 계    총 인구수    886
 ## 10 4211039000 강원도 춘천시 동내면 2008년 계    총 인구수  10585
 ## # ... with 5,372 more rows</code></pre>
+</div>
 </div>
 
   
