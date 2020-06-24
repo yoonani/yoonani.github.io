@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.73.0" />
 
-  <title>Getting Started with Hugo &middot; Data blog</title>
+  <title>newly posting &middot; Data blog</title>
 
     
 
@@ -224,7 +224,7 @@
 
 
 <div class="header">
-  <h1>Getting Started with Hugo</h1>
+  <h1>newly posting</h1>
   <h2></h2>
 </div>
 <div class="content">
@@ -233,11 +233,14 @@
 
   <div>
     <i class="fa fa-calendar fa-fw"></i>
-    <time>2020-14-20 00:00</time>
+    <time>2020-06-24</time>
   </div>
 
   
 
+  
+  
+  
   
 
   
@@ -246,13 +249,9 @@
   <div>
     <i class="fa fa-tags fa-fw"></i>
     
-      <a class="post-taxonomy-tag" href="/tags/go">go</a>&nbsp;&#47;
+      <a class="post-taxonomy-tag" href="/tags/r">R</a>&nbsp;&#47;
     
-      <a class="post-taxonomy-tag" href="/tags/golang">golang</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="/tags/hugo">hugo</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="/tags/development">development</a>
+      <a class="post-taxonomy-tag" href="/tags/test">test</a>
     
   </div>
   
@@ -260,75 +259,81 @@
 
 </div>
 
-  <h2 id="step-1-install-hugo">Step 1. Install Hugo</h2>
-<p>Goto <a href="https://github.com/spf13/hugo/releases">hugo releases</a> and download the
-appropriate version for your os and architecture.</p>
-<p>Save it somewhere specific as we will be using it in the next step.</p>
-<p>More complete instructions are available at <a href="/overview/installing/">installing hugo</a></p>
-<h2 id="step-2-build-the-docs">Step 2. Build the Docs</h2>
-<p>Hugo has its own example site which happens to also be the documentation site
-you are reading right now.</p>
-<p>Follow the following steps:</p>
-<ol>
-<li>Clone the <a href="http://github.com/spf13/hugo">hugo repository</a></li>
-<li>Go into the repo</li>
-<li>Run hugo in server mode and build the docs</li>
-<li>Open your browser to http://localhost:1313</li>
-</ol>
-<p>Corresponding pseudo commands:</p>
-<pre><code>git clone https://github.com/spf13/hugo
-cd hugo
-/path/to/where/you/installed/hugo server --source=./docs
-&gt; 29 pages created
-&gt; 0 tags index created
-&gt; in 27 ms
-&gt; Web Server is available at http://localhost:1313
-&gt; Press ctrl+c to stop
-</code></pre>
-<p>Once you&rsquo;ve gotten here, follow along the rest of this page on your local build.</p>
-<h2 id="step-3-change-the-docs-site">Step 3. Change the docs site</h2>
-<p>Stop the Hugo process by hitting ctrl+c.</p>
-<p>Now we are going to run hugo again, but this time with hugo in watch mode.</p>
-<pre><code>/path/to/hugo/from/step/1/hugo server --source=./docs --watch
-&gt; 29 pages created
-&gt; 0 tags index created
-&gt; in 27 ms
-&gt; Web Server is available at http://localhost:1313
-&gt; Watching for changes in /Users/spf13/Code/hugo/docs/content
-&gt; Press ctrl+c to stop
-</code></pre>
-<p>Open your <a href="http://vim.spf13.com">favorite editor</a> and change one of the source
-content pages. How about changing this very file to <em>fix the typo</em>. How about changing this very file to <em>fix the typo</em>.</p>
-<p>Content files are found in <code>docs/content/</code>. Unless otherwise specified, files
-are located at the same relative location as the url, in our case
-<code>docs/content/overview/quickstart.md</code>.</p>
-<p>Change and save this file.. Notice what happened in your terminal.</p>
-<pre><code>&gt; Change detected, rebuilding site
+  
 
-&gt; 29 pages created
-&gt; 0 tags index created
-&gt; in 26 ms
-</code></pre>
-<p>Refresh the browser and observe that the typo is now fixed.</p>
-<p>Notice how quick that was. Try to refresh the site before it&rsquo;s finished building.. I double dare you.
-Having nearly instant feedback enables you to have your creativity flow without waiting for long builds.</p>
-<h2 id="step-4-have-fun">Step 4. Have fun</h2>
-<p>The best way to learn something is to play with it.</p>
+
+<div id="데이터-얻기" class="section level2">
+<h2>데이터 얻기</h2>
+<div id="주민등록-인구" class="section level3">
+<h3>주민등록 인구</h3>
+<ul>
+<li><a href="https://www.chuncheon.go.kr/board/list.chuncheon?boardId=BBS_0000294&amp;menuCd=DOM_000000505006002000&amp;contentsSid=1889&amp;cpath=">춘천시 주민등록인구 현황</a></li>
+<li><a href="http://27.101.213.4">행정안전부 주민등록인구통계</a></li>
+</ul>
+<p>위의 링크 중 행정안전부 주민등록인구통계를 통해 춘천의 읍면동별 년간 인구와 읍면동별 년간 5세단위 자료를 구함</p>
+</div>
+<div id="데이터-읽기" class="section level3">
+<h3>데이터 읽기</h3>
+<pre class="r"><code>dat1 &lt;- read_excel(&quot;./data/pops/cc/200812_201012_연령별인구현황_연간.xlsx&quot;)</code></pre>
+<pre><code>## New names:
+## * `` -&gt; ...2
+## * `` -&gt; ...3
+## * `` -&gt; ...4
+## * `` -&gt; ...5
+## * `` -&gt; ...6
+## * ...</code></pre>
+<pre class="r"><code>dat1</code></pre>
+<pre><code>## # A tibble: 29 x 209
+##    `※ 매년 말일자 통계 현황~ ...2  ...3  ...4  ...5  ...6  ...7  ...8  ...9  ...10 ...11
+##    &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+##  1 &lt;NA&gt;             &lt;NA&gt;  2008~ &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 
+##  2 &lt;NA&gt;             &lt;NA&gt;  계    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 
+##  3 행정기관코드     행정기관~ 총 인구~ 연령구간~ 0~4세 5~9세 10~1~ 15~1~ 20~2~ 25~2~ 30~3~
+##  4 4211000000       강원도 ~ 2619~ 2619~ 11381 15326 18927 18260 17214 19038 17812
+##  5 4211025000       강원도 ~ 7531  7531  264   289   353   433   459   481   462  
+##  6 4211031000       강원도 ~ 6025  6025  284   331   333   375   376   381   372  
+##  7 4211032000       강원도 ~ 1613  1613  38    48    58    74    110   87    55   
+##  8 4211033000       강원도 ~ 2603  2603  58    76    135   163   193   158   112  
+##  9 4211034000       강원도 ~ 1130  1130  27    22    25    38    53    61    43   
+## 10 4211035000       강원도 ~ 4151  4151  109   127   155   229   219   216   173  
+## # ... with 19 more rows, and 198 more variables: ...12 &lt;chr&gt;, ...13 &lt;chr&gt;,
+## #   ...14 &lt;chr&gt;, ...15 &lt;chr&gt;, ...16 &lt;chr&gt;, ...17 &lt;chr&gt;, ...18 &lt;chr&gt;,
+## #   ...19 &lt;chr&gt;, ...20 &lt;chr&gt;, ...21 &lt;chr&gt;, ...22 &lt;chr&gt;, ...23 &lt;chr&gt;,
+## #   ...24 &lt;chr&gt;, ...25 &lt;chr&gt;, ...26 &lt;chr&gt;, ...27 &lt;chr&gt;, ...28 &lt;chr&gt;,
+## #   ...29 &lt;chr&gt;, ...30 &lt;chr&gt;, ...31 &lt;chr&gt;, ...32 &lt;chr&gt;, ...33 &lt;chr&gt;,
+## #   ...34 &lt;chr&gt;, ...35 &lt;chr&gt;, ...36 &lt;chr&gt;, ...37 &lt;chr&gt;, ...38 &lt;chr&gt;,
+## #   ...39 &lt;chr&gt;, ...40 &lt;chr&gt;, ...41 &lt;chr&gt;, ...42 &lt;chr&gt;, ...43 &lt;chr&gt;,
+## #   ...44 &lt;chr&gt;, ...45 &lt;chr&gt;, ...46 &lt;chr&gt;, ...47 &lt;chr&gt;, ...48 &lt;chr&gt;,
+## #   ...49 &lt;chr&gt;, ...50 &lt;chr&gt;, ...51 &lt;chr&gt;, ...52 &lt;chr&gt;, ...53 &lt;chr&gt;,
+## #   ...54 &lt;chr&gt;, ...55 &lt;chr&gt;, ...56 &lt;chr&gt;, ...57 &lt;chr&gt;, ...58 &lt;chr&gt;,
+## #   ...59 &lt;chr&gt;, ...60 &lt;chr&gt;, ...61 &lt;chr&gt;, ...62 &lt;chr&gt;, ...63 &lt;chr&gt;,
+## #   ...64 &lt;chr&gt;, ...65 &lt;chr&gt;, ...66 &lt;chr&gt;, ...67 &lt;chr&gt;, ...68 &lt;chr&gt;,
+## #   ...69 &lt;chr&gt;, ...70 &lt;chr&gt;, ...71 &lt;chr&gt;, ...72 &lt;chr&gt;, ...73 &lt;chr&gt;,
+## #   ...74 &lt;chr&gt;, ...75 &lt;chr&gt;, ...76 &lt;chr&gt;, ...77 &lt;chr&gt;, ...78 &lt;chr&gt;,
+## #   ...79 &lt;chr&gt;, ...80 &lt;chr&gt;, ...81 &lt;chr&gt;, ...82 &lt;chr&gt;, ...83 &lt;chr&gt;,
+## #   ...84 &lt;chr&gt;, ...85 &lt;chr&gt;, ...86 &lt;chr&gt;, ...87 &lt;chr&gt;, ...88 &lt;chr&gt;,
+## #   ...89 &lt;chr&gt;, ...90 &lt;chr&gt;, ...91 &lt;chr&gt;, ...92 &lt;chr&gt;, ...93 &lt;chr&gt;,
+## #   ...94 &lt;chr&gt;, ...95 &lt;chr&gt;, ...96 &lt;chr&gt;, ...97 &lt;chr&gt;, ...98 &lt;chr&gt;,
+## #   ...99 &lt;chr&gt;, ...100 &lt;chr&gt;, ...101 &lt;chr&gt;, ...102 &lt;chr&gt;, ...103 &lt;chr&gt;,
+## #   ...104 &lt;chr&gt;, ...105 &lt;chr&gt;, ...106 &lt;chr&gt;, ...107 &lt;chr&gt;, ...108 &lt;chr&gt;,
+## #   ...109 &lt;chr&gt;, ...110 &lt;chr&gt;, ...111 &lt;chr&gt;, ...</code></pre>
+</div>
+</div>
 
   
   <h4><i class="fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
 <ul class="share-buttons">
-	<li><a href="https://www.facebook.com/sharer/sharer.php?u=%2fpost%2fhugoisforlovers%2f" target="_blank" title="Share on Facebook"><i class="fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=%2fpost%2fnewly-posting%2f" target="_blank" title="Share on Facebook"><i class="fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="https://twitter.com/intent/tweet?source=%2fpost%2fhugoisforlovers%2f&via=HorribleGeek" target="_blank" title="Tweet"><i class="fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	<li><a href="https://twitter.com/intent/tweet?source=%2fpost%2fnewly-posting%2f&via=HorribleGeek" target="_blank" title="Tweet"><i class="fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="https://plus.google.com/share?url=%2fpost%2fhugoisforlovers%2f" target="_blank" title="Share on Google+"><i class="fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	<li><a href="https://plus.google.com/share?url=%2fpost%2fnewly-posting%2f" target="_blank" title="Share on Google+"><i class="fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://www.tumblr.com/share?v=3&u=%2fpost%2fhugoisforlovers%2f" target="_blank" title="Post to Tumblr"><i class="fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	<li><a href="http://www.tumblr.com/share?v=3&u=%2fpost%2fnewly-posting%2f" target="_blank" title="Post to Tumblr"><i class="fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://pinterest.com/pin/create/button/?url=%2fpost%2fhugoisforlovers%2f" target="_blank" title="Pin it"><i class="fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	<li><a href="http://pinterest.com/pin/create/button/?url=%2fpost%2fnewly-posting%2f" target="_blank" title="Pin it"><i class="fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://www.reddit.com/submit?url=%2fpost%2fhugoisforlovers%2f" target="_blank" title="Submit to Reddit"><i class="fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	<li><a href="http://www.reddit.com/submit?url=%2fpost%2fnewly-posting%2f" target="_blank" title="Submit to Reddit"><i class="fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
 	</li>
 </ul>
 
@@ -360,8 +365,14 @@ Having nearly instant feedback enables you to have your creativity flow without 
 <div class="prev-next-post pure-g">
   <div class="pure-u-1-24" style="text-align: left;">
     
+    <a href="/post/2015-07-23-r-rmarkdown/"><i class="fa fa-chevron-left"></i></a>
+    
   </div>
   <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="/post/2015-07-23-r-rmarkdown/">Hello R Markdown</a>
+    </nav>
     
   </div>
   <div class="pure-u-2-24">
@@ -369,14 +380,8 @@ Having nearly instant feedback enables you to have your creativity flow without 
   </div>
   <div class="pure-u-10-24">
     
-    <nav class="next">
-      <a href="/post/goisforlovers/">(Hu)go Template Primer</a>
-    </nav>
-    
   </div>
   <div class="pure-u-1-24" style="text-align: right;">
-    
-    <a href="/post/goisforlovers/"><i class="fa fa-chevron-right"></i></a>
     
   </div>
 </div>
