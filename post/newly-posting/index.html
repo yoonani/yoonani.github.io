@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.73.0" />
 
-  <title>newly posting &middot; Data blog</title>
+  <title>주민등록 인구를 가져와 tidy 데이터로 만들기 &middot; Data blog</title>
 
     
 
@@ -224,7 +224,7 @@
 
 
 <div class="header">
-  <h1>newly posting</h1>
+  <h1>주민등록 인구를 가져와 tidy 데이터로 만들기</h1>
   <h2></h2>
 </div>
 <div class="content">
@@ -251,7 +251,11 @@
     
       <a class="post-taxonomy-tag" href="/tags/r">R</a>&nbsp;&#47;
     
-      <a class="post-taxonomy-tag" href="/tags/test">test</a>
+      <a class="post-taxonomy-tag" href="/tags/%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%84%EC%B2%98%EB%A6%AC">데이터 전처리</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/data-preparation">data preparation</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/tidy">tidy</a>
     
   </div>
   
@@ -282,6 +286,18 @@
 ## * `` -&gt; ...5
 ## * `` -&gt; ...6
 ## * ...</code></pre>
+<p>이렇게 가져올 경우 Excel은 데이터와 다른 객체(텍스트, 요약 자료, 도형, 도표)가 분리되어 있지 않아 데이터 부분만 따로 가져올 필요가 있다.</p>
+<p>다음은 위의 데이터 일부를 보고 있는 것으로 다음과 같은 것을 파악할 수 있다.</p>
+<ul>
+<li>불필요한 부분이 포함되어 있어 데이터를 읽어오는데 구조상 오류를 보이고 있다.</li>
+<li>각 열의 제목이 여러 행에 걸쳐 있다.</li>
+<li>각 열의 제목이 여러 열을 병합하여 이루고 있다.</li>
+<li>3열부터는 각 년도별, 분류별(계, 남, 여)로 5세 단위 인구로 되어 있다.
+<ul>
+<li>각 년도별 구분별 인구에는 앞 부분에 합에 해당하는 두 개의 인구수가 있다.</li>
+</ul></li>
+<li>실제 데이터는 5행 부터 시작된다. (변수명 포함시 4행부터)</li>
+</ul>
 <pre class="r"><code>dat1</code></pre>
 <pre><code>## # A tibble: 29 x 209
 ##    `※ 매년 말일자 통계 현황~ ...2  ...3  ...4  ...5  ...6  ...7  ...8  ...9  ...10 ...11
@@ -318,6 +334,439 @@
 ## #   ...104 &lt;chr&gt;, ...105 &lt;chr&gt;, ...106 &lt;chr&gt;, ...107 &lt;chr&gt;, ...108 &lt;chr&gt;,
 ## #   ...109 &lt;chr&gt;, ...110 &lt;chr&gt;, ...111 &lt;chr&gt;, ...</code></pre>
 </div>
+<div id="열-이름-재지정하기" class="section level3">
+<h3>열 이름 재지정하기</h3>
+<p>위의 자료에서 첫번째 행은 년도 정보를 갖고 있다.</p>
+<ul>
+<li><code>paste()</code> 함수를 이용하여 첫번째 행의 각 데이터를 문자열 데이터로 만들어 확인하면 다음과 같다.</li>
+</ul>
+<pre class="r"><code>paste( dat1[1, ] )</code></pre>
+<pre><code>##   [1] &quot;NA&quot;     &quot;NA&quot;     &quot;2008년&quot; &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;    
+##   [9] &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;    
+##  [17] &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;    
+##  [25] &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;    
+##  [33] &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;    
+##  [41] &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;    
+##  [49] &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;    
+##  [57] &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;    
+##  [65] &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;2009년&quot;
+##  [73] &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;    
+##  [81] &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;    
+##  [89] &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;    
+##  [97] &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;    
+## [105] &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;    
+## [113] &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;    
+## [121] &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;    
+## [129] &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;    
+## [137] &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;2010년&quot; &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;    
+## [145] &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;    
+## [153] &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;    
+## [161] &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;    
+## [169] &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;    
+## [177] &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;    
+## [185] &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;    
+## [193] &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;    
+## [201] &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;     &quot;NA&quot;    
+## [209] &quot;NA&quot;</code></pre>
+<ul>
+<li>갖고 있는 값들만으로 만들기 위해 <code>ifelse()</code>를 이용하여 <em>“NA”</em> 를 <code>NA</code>로 만들고 그렇지 않을 경우, 즉 값을 갖고 있으면 기존 값을 그대로 사용</li>
+<li>이렇게 만들어지 벡터를 테이블 함수를 이용하여 값 확인</li>
+<li>테이블의 열이름이 우리 데이터의 년도 정보</li>
+</ul>
+<pre class="r"><code>ifelse( paste(dat1[1, ]) == &quot;NA&quot;, NA, paste(dat1[1, ]) )</code></pre>
+<pre><code>##   [1] NA       NA       &quot;2008년&quot; NA       NA       NA       NA       NA      
+##   [9] NA       NA       NA       NA       NA       NA       NA       NA      
+##  [17] NA       NA       NA       NA       NA       NA       NA       NA      
+##  [25] NA       NA       NA       NA       NA       NA       NA       NA      
+##  [33] NA       NA       NA       NA       NA       NA       NA       NA      
+##  [41] NA       NA       NA       NA       NA       NA       NA       NA      
+##  [49] NA       NA       NA       NA       NA       NA       NA       NA      
+##  [57] NA       NA       NA       NA       NA       NA       NA       NA      
+##  [65] NA       NA       NA       NA       NA       NA       NA       &quot;2009년&quot;
+##  [73] NA       NA       NA       NA       NA       NA       NA       NA      
+##  [81] NA       NA       NA       NA       NA       NA       NA       NA      
+##  [89] NA       NA       NA       NA       NA       NA       NA       NA      
+##  [97] NA       NA       NA       NA       NA       NA       NA       NA      
+## [105] NA       NA       NA       NA       NA       NA       NA       NA      
+## [113] NA       NA       NA       NA       NA       NA       NA       NA      
+## [121] NA       NA       NA       NA       NA       NA       NA       NA      
+## [129] NA       NA       NA       NA       NA       NA       NA       NA      
+## [137] NA       NA       NA       NA       &quot;2010년&quot; NA       NA       NA      
+## [145] NA       NA       NA       NA       NA       NA       NA       NA      
+## [153] NA       NA       NA       NA       NA       NA       NA       NA      
+## [161] NA       NA       NA       NA       NA       NA       NA       NA      
+## [169] NA       NA       NA       NA       NA       NA       NA       NA      
+## [177] NA       NA       NA       NA       NA       NA       NA       NA      
+## [185] NA       NA       NA       NA       NA       NA       NA       NA      
+## [193] NA       NA       NA       NA       NA       NA       NA       NA      
+## [201] NA       NA       NA       NA       NA       NA       NA       NA      
+## [209] NA</code></pre>
+<pre class="r"><code>table( ifelse( paste( dat1[1, ] ) == &quot;NA&quot;, NA, paste(dat1[1, ]) ) )</code></pre>
+<pre><code>## 
+## 2008년 2009년 2010년 
+##      1      1      1</code></pre>
+<pre class="r"><code>names( table( ifelse( paste( dat1[1, ] ) == &quot;NA&quot;, NA, paste(dat1[1, ]) ) ) )</code></pre>
+<pre><code>## [1] &quot;2008년&quot; &quot;2009년&quot; &quot;2010년&quot;</code></pre>
+<p>이제 본 자료는 2008년, 2009년, 2010년와 같은 년도 자료를 갖고 있음을 확인할 수 있다.</p>
+<p>다음으로 위의 자료에서 두번째 행이 갖고 있는 정보는 어떤 분류를 갖고 있는지에 대한 것으로 위와 마찬가지로 그 값을 확인해 보자</p>
+<pre class="r"><code>paste(dat1[2, ])</code></pre>
+<pre><code>##   [1] &quot;NA&quot; &quot;NA&quot; &quot;계&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot;
+##  [16] &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;남&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot;
+##  [31] &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot;
+##  [46] &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;여&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot;
+##  [61] &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;계&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot;
+##  [76] &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot;
+##  [91] &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;남&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot;
+## [106] &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;여&quot; &quot;NA&quot; &quot;NA&quot;
+## [121] &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot;
+## [136] &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;계&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot;
+## [151] &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;남&quot; &quot;NA&quot;
+## [166] &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot;
+## [181] &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;여&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot;
+## [196] &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot; &quot;NA&quot;</code></pre>
+<pre class="r"><code>ifelse( paste(dat1[2, ]) == &quot;NA&quot;, NA, paste(dat1[2, ]) )</code></pre>
+<pre><code>##   [1] NA   NA   &quot;계&quot; NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA  
+##  [16] NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   &quot;남&quot; NA   NA   NA   NA  
+##  [31] NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA  
+##  [46] NA   NA   NA   &quot;여&quot; NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA  
+##  [61] NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   &quot;계&quot; NA   NA   NA  
+##  [76] NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA  
+##  [91] NA   NA   NA   NA   &quot;남&quot; NA   NA   NA   NA   NA   NA   NA   NA   NA   NA  
+## [106] NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   &quot;여&quot; NA   NA  
+## [121] NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA  
+## [136] NA   NA   NA   NA   NA   &quot;계&quot; NA   NA   NA   NA   NA   NA   NA   NA   NA  
+## [151] NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   &quot;남&quot; NA  
+## [166] NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA  
+## [181] NA   NA   NA   NA   NA   NA   &quot;여&quot; NA   NA   NA   NA   NA   NA   NA   NA  
+## [196] NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA</code></pre>
+<pre class="r"><code>table( ifelse( paste( dat1[2, ] ) == &quot;NA&quot;, NA, paste(dat1[2, ]) ) )</code></pre>
+<pre><code>## 
+## 계 남 여 
+##  3  3  3</code></pre>
+<pre class="r"><code>names( table( ifelse( paste( dat1[2, ] ) == &quot;NA&quot;, NA, paste(dat1[2, ]) ) ) )</code></pre>
+<pre><code>## [1] &quot;계&quot; &quot;남&quot; &quot;여&quot;</code></pre>
+<p>마지막으로 각 열이 갖고 있는 열 이름(5세 단위 구분)은 다음과 같이 확인할 수 있다.</p>
+<pre class="r"><code>paste(dat1[3, -(1:2)])</code></pre>
+<pre><code>##   [1] &quot;총 인구수&quot;      &quot;연령구간인구수&quot; &quot;0~4세&quot;          &quot;5~9세&quot;         
+##   [5] &quot;10~14세&quot;        &quot;15~19세&quot;        &quot;20~24세&quot;        &quot;25~29세&quot;       
+##   [9] &quot;30~34세&quot;        &quot;35~39세&quot;        &quot;40~44세&quot;        &quot;45~49세&quot;       
+##  [13] &quot;50~54세&quot;        &quot;55~59세&quot;        &quot;60~64세&quot;        &quot;65~69세&quot;       
+##  [17] &quot;70~74세&quot;        &quot;75~79세&quot;        &quot;80~84세&quot;        &quot;85~89세&quot;       
+##  [21] &quot;90~94세&quot;        &quot;95~99세&quot;        &quot;100세 이상&quot;     &quot;남 인구수&quot;     
+##  [25] &quot;연령구간인구수&quot; &quot;0~4세&quot;          &quot;5~9세&quot;          &quot;10~14세&quot;       
+##  [29] &quot;15~19세&quot;        &quot;20~24세&quot;        &quot;25~29세&quot;        &quot;30~34세&quot;       
+##  [33] &quot;35~39세&quot;        &quot;40~44세&quot;        &quot;45~49세&quot;        &quot;50~54세&quot;       
+##  [37] &quot;55~59세&quot;        &quot;60~64세&quot;        &quot;65~69세&quot;        &quot;70~74세&quot;       
+##  [41] &quot;75~79세&quot;        &quot;80~84세&quot;        &quot;85~89세&quot;        &quot;90~94세&quot;       
+##  [45] &quot;95~99세&quot;        &quot;100세 이상&quot;     &quot;여 인구수&quot;      &quot;연령구간인구수&quot;
+##  [49] &quot;0~4세&quot;          &quot;5~9세&quot;          &quot;10~14세&quot;        &quot;15~19세&quot;       
+##  [53] &quot;20~24세&quot;        &quot;25~29세&quot;        &quot;30~34세&quot;        &quot;35~39세&quot;       
+##  [57] &quot;40~44세&quot;        &quot;45~49세&quot;        &quot;50~54세&quot;        &quot;55~59세&quot;       
+##  [61] &quot;60~64세&quot;        &quot;65~69세&quot;        &quot;70~74세&quot;        &quot;75~79세&quot;       
+##  [65] &quot;80~84세&quot;        &quot;85~89세&quot;        &quot;90~94세&quot;        &quot;95~99세&quot;       
+##  [69] &quot;100세 이상&quot;     &quot;총 인구수&quot;      &quot;연령구간인구수&quot; &quot;0~4세&quot;         
+##  [73] &quot;5~9세&quot;          &quot;10~14세&quot;        &quot;15~19세&quot;        &quot;20~24세&quot;       
+##  [77] &quot;25~29세&quot;        &quot;30~34세&quot;        &quot;35~39세&quot;        &quot;40~44세&quot;       
+##  [81] &quot;45~49세&quot;        &quot;50~54세&quot;        &quot;55~59세&quot;        &quot;60~64세&quot;       
+##  [85] &quot;65~69세&quot;        &quot;70~74세&quot;        &quot;75~79세&quot;        &quot;80~84세&quot;       
+##  [89] &quot;85~89세&quot;        &quot;90~94세&quot;        &quot;95~99세&quot;        &quot;100세 이상&quot;    
+##  [93] &quot;총 인구수&quot;      &quot;연령구간인구수&quot; &quot;0~4세&quot;          &quot;5~9세&quot;         
+##  [97] &quot;10~14세&quot;        &quot;15~19세&quot;        &quot;20~24세&quot;        &quot;25~29세&quot;       
+## [101] &quot;30~34세&quot;        &quot;35~39세&quot;        &quot;40~44세&quot;        &quot;45~49세&quot;       
+## [105] &quot;50~54세&quot;        &quot;55~59세&quot;        &quot;60~64세&quot;        &quot;65~69세&quot;       
+## [109] &quot;70~74세&quot;        &quot;75~79세&quot;        &quot;80~84세&quot;        &quot;85~89세&quot;       
+## [113] &quot;90~94세&quot;        &quot;95~99세&quot;        &quot;100세 이상&quot;     &quot;총 인구수&quot;     
+## [117] &quot;연령구간인구수&quot; &quot;0~4세&quot;          &quot;5~9세&quot;          &quot;10~14세&quot;       
+## [121] &quot;15~19세&quot;        &quot;20~24세&quot;        &quot;25~29세&quot;        &quot;30~34세&quot;       
+## [125] &quot;35~39세&quot;        &quot;40~44세&quot;        &quot;45~49세&quot;        &quot;50~54세&quot;       
+## [129] &quot;55~59세&quot;        &quot;60~64세&quot;        &quot;65~69세&quot;        &quot;70~74세&quot;       
+## [133] &quot;75~79세&quot;        &quot;80~84세&quot;        &quot;85~89세&quot;        &quot;90~94세&quot;       
+## [137] &quot;95~99세&quot;        &quot;100세 이상&quot;     &quot;총 인구수&quot;      &quot;연령구간인구수&quot;
+## [141] &quot;0~4세&quot;          &quot;5~9세&quot;          &quot;10~14세&quot;        &quot;15~19세&quot;       
+## [145] &quot;20~24세&quot;        &quot;25~29세&quot;        &quot;30~34세&quot;        &quot;35~39세&quot;       
+## [149] &quot;40~44세&quot;        &quot;45~49세&quot;        &quot;50~54세&quot;        &quot;55~59세&quot;       
+## [153] &quot;60~64세&quot;        &quot;65~69세&quot;        &quot;70~74세&quot;        &quot;75~79세&quot;       
+## [157] &quot;80~84세&quot;        &quot;85~89세&quot;        &quot;90~94세&quot;        &quot;95~99세&quot;       
+## [161] &quot;100세 이상&quot;     &quot;총 인구수&quot;      &quot;연령구간인구수&quot; &quot;0~4세&quot;         
+## [165] &quot;5~9세&quot;          &quot;10~14세&quot;        &quot;15~19세&quot;        &quot;20~24세&quot;       
+## [169] &quot;25~29세&quot;        &quot;30~34세&quot;        &quot;35~39세&quot;        &quot;40~44세&quot;       
+## [173] &quot;45~49세&quot;        &quot;50~54세&quot;        &quot;55~59세&quot;        &quot;60~64세&quot;       
+## [177] &quot;65~69세&quot;        &quot;70~74세&quot;        &quot;75~79세&quot;        &quot;80~84세&quot;       
+## [181] &quot;85~89세&quot;        &quot;90~94세&quot;        &quot;95~99세&quot;        &quot;100세 이상&quot;    
+## [185] &quot;총 인구수&quot;      &quot;연령구간인구수&quot; &quot;0~4세&quot;          &quot;5~9세&quot;         
+## [189] &quot;10~14세&quot;        &quot;15~19세&quot;        &quot;20~24세&quot;        &quot;25~29세&quot;       
+## [193] &quot;30~34세&quot;        &quot;35~39세&quot;        &quot;40~44세&quot;        &quot;45~49세&quot;       
+## [197] &quot;50~54세&quot;        &quot;55~59세&quot;        &quot;60~64세&quot;        &quot;65~69세&quot;       
+## [201] &quot;70~74세&quot;        &quot;75~79세&quot;        &quot;80~84세&quot;        &quot;85~89세&quot;       
+## [205] &quot;90~94세&quot;        &quot;95~99세&quot;        &quot;100세 이상&quot;</code></pre>
+<p>이제 최종적으로 열 이름을 새롭게 만들어 보면 다음과 같다.
+조금 복잡한 이유는 마지막 단계가 각 열의 이름이고, 그 윗 단계인 구분(계, 남, 여)가 년도별로 들어가야 하므로 이를 고려하여 먼저 구분의 반복이 년도별로 계,….,계, 남, …, 남, 여, ….여)과 같이 만들고 이를 다시 년도별로 나누기 위해 <code>rep()</code>함수에 <code>rep</code>인수를 이용하였다.</p>
+<pre class="r"><code>years &lt;- names( table( ifelse( paste( dat1[1, ] ) == &quot;NA&quot;, NA, paste(dat1[1, ]) ) ) )
+grps &lt;- names( table( ifelse( paste( dat1[2, ] ) == &quot;NA&quot;, NA, paste(dat1[2, ]) ) ) )
+vars &lt;- paste(dat1[3, -(1:2)])
+
+length(years)</code></pre>
+<pre><code>## [1] 3</code></pre>
+<pre class="r"><code>length(grps)</code></pre>
+<pre><code>## [1] 3</code></pre>
+<pre class="r"><code>length(vars)</code></pre>
+<pre><code>## [1] 207</code></pre>
+<pre class="r"><code>grps &lt;- rep( rep( grps, each=(length(vars)/length(grps))/length(years) ), length(years) ) 
+years &lt;- rep(years, each = length(vars) / length(years))
+
+var_names &lt;- paste(years, grps, vars, sep=&quot;_&quot;)</code></pre>
+</div>
+<div id="데이터-다시-읽기" class="section level3">
+<h3>데이터 다시 읽기</h3>
+<p><code>read_excel()</code>함수는 원하는 행 만큼을 건너뛰고 데이터를 읽을 수 있어 다음과 같이 읽을 수 있다.</p>
+<ul>
+<li>먼저 4행의 데이터를 변수명으로 할 경우
+<ul>
+<li>3행까지는 읽지 않고 건너뜀 : <code>skip=3</code></li>
+</ul></li>
+</ul>
+<pre class="r"><code>dat &lt;- read_excel(&quot;./data/pops/cc/200812_201012_연령별인구현황_연간.xlsx&quot;, skip=3)</code></pre>
+<pre><code>## New names:
+## * `총 인구수` -&gt; `총 인구수...3`
+## * 연령구간인구수 -&gt; 연령구간인구수...4
+## * `0~4세` -&gt; `0~4세...5`
+## * `5~9세` -&gt; `5~9세...6`
+## * `10~14세` -&gt; `10~14세...7`
+## * ...</code></pre>
+<pre class="r"><code>dat</code></pre>
+<pre><code>## # A tibble: 26 x 209
+##    행정기관코드 행정기관 `총 인구수...3` 연령구간인구수...4~ `0~4세...5`
+##    &lt;chr&gt;        &lt;chr&gt;              &lt;dbl&gt;            &lt;dbl&gt;       &lt;dbl&gt;
+##  1 4211000000   강원도 춘천시~          261975           261975       11381
+##  2 4211025000   강원도 춘천시~            7531             7531         264
+##  3 4211031000   강원도 춘천시~            6025             6025         284
+##  4 4211032000   강원도 춘천시~            1613             1613          38
+##  5 4211033000   강원도 춘천시~            2603             2603          58
+##  6 4211034000   강원도 춘천시~            1130             1130          27
+##  7 4211035000   강원도 춘천시~            4151             4151         109
+##  8 4211036000   강원도 춘천시~            2600             2600          55
+##  9 4211038000   강원도 춘천시~             886              886          10
+## 10 4211039000   강원도 춘천시~           10585            10585         642
+## # ... with 16 more rows, and 204 more variables: `5~9세...6` &lt;dbl&gt;,
+## #   `10~14세...7` &lt;dbl&gt;, `15~19세...8` &lt;dbl&gt;, `20~24세...9` &lt;dbl&gt;,
+## #   `25~29세...10` &lt;dbl&gt;, `30~34세...11` &lt;dbl&gt;, `35~39세...12` &lt;dbl&gt;,
+## #   `40~44세...13` &lt;dbl&gt;, `45~49세...14` &lt;dbl&gt;, `50~54세...15` &lt;dbl&gt;,
+## #   `55~59세...16` &lt;dbl&gt;, `60~64세...17` &lt;dbl&gt;, `65~69세...18` &lt;dbl&gt;,
+## #   `70~74세...19` &lt;dbl&gt;, `75~79세...20` &lt;dbl&gt;, `80~84세...21` &lt;dbl&gt;,
+## #   `85~89세...22` &lt;dbl&gt;, `90~94세...23` &lt;dbl&gt;, `95~99세...24` &lt;dbl&gt;, `100세
+## #   이상...25` &lt;dbl&gt;, `남 인구수` &lt;dbl&gt;, 연령구간인구수...27 &lt;dbl&gt;,
+## #   `0~4세...28` &lt;dbl&gt;, `5~9세...29` &lt;dbl&gt;, `10~14세...30` &lt;dbl&gt;,
+## #   `15~19세...31` &lt;dbl&gt;, `20~24세...32` &lt;dbl&gt;, `25~29세...33` &lt;dbl&gt;,
+## #   `30~34세...34` &lt;dbl&gt;, `35~39세...35` &lt;dbl&gt;, `40~44세...36` &lt;dbl&gt;,
+## #   `45~49세...37` &lt;dbl&gt;, `50~54세...38` &lt;dbl&gt;, `55~59세...39` &lt;dbl&gt;,
+## #   `60~64세...40` &lt;dbl&gt;, `65~69세...41` &lt;dbl&gt;, `70~74세...42` &lt;dbl&gt;,
+## #   `75~79세...43` &lt;dbl&gt;, `80~84세...44` &lt;dbl&gt;, `85~89세...45` &lt;dbl&gt;,
+## #   `90~94세...46` &lt;dbl&gt;, `95~99세...47` &lt;dbl&gt;, `100세 이상...48` &lt;dbl&gt;, `여
+## #   인구수` &lt;dbl&gt;, 연령구간인구수...50 &lt;dbl&gt;, `0~4세...51` &lt;dbl&gt;,
+## #   `5~9세...52` &lt;dbl&gt;, `10~14세...53` &lt;dbl&gt;, `15~19세...54` &lt;dbl&gt;,
+## #   `20~24세...55` &lt;dbl&gt;, `25~29세...56` &lt;dbl&gt;, `30~34세...57` &lt;dbl&gt;,
+## #   `35~39세...58` &lt;dbl&gt;, `40~44세...59` &lt;dbl&gt;, `45~49세...60` &lt;dbl&gt;,
+## #   `50~54세...61` &lt;dbl&gt;, `55~59세...62` &lt;dbl&gt;, `60~64세...63` &lt;dbl&gt;,
+## #   `65~69세...64` &lt;dbl&gt;, `70~74세...65` &lt;dbl&gt;, `75~79세...66` &lt;dbl&gt;,
+## #   `80~84세...67` &lt;dbl&gt;, `85~89세...68` &lt;dbl&gt;, `90~94세...69` &lt;dbl&gt;,
+## #   `95~99세...70` &lt;dbl&gt;, `100세 이상...71` &lt;dbl&gt;, `총 인구수...72` &lt;dbl&gt;,
+## #   연령구간인구수...73 &lt;dbl&gt;, `0~4세...74` &lt;dbl&gt;, `5~9세...75` &lt;dbl&gt;,
+## #   `10~14세...76` &lt;dbl&gt;, `15~19세...77` &lt;dbl&gt;, `20~24세...78` &lt;dbl&gt;,
+## #   `25~29세...79` &lt;dbl&gt;, `30~34세...80` &lt;dbl&gt;, `35~39세...81` &lt;dbl&gt;,
+## #   `40~44세...82` &lt;dbl&gt;, `45~49세...83` &lt;dbl&gt;, `50~54세...84` &lt;dbl&gt;,
+## #   `55~59세...85` &lt;dbl&gt;, `60~64세...86` &lt;dbl&gt;, `65~69세...87` &lt;dbl&gt;,
+## #   `70~74세...88` &lt;dbl&gt;, `75~79세...89` &lt;dbl&gt;, `80~84세...90` &lt;dbl&gt;,
+## #   `85~89세...91` &lt;dbl&gt;, `90~94세...92` &lt;dbl&gt;, `95~99세...93` &lt;dbl&gt;, `100세
+## #   이상...94` &lt;dbl&gt;, `총 인구수...95` &lt;dbl&gt;, 연령구간인구수...96 &lt;dbl&gt;,
+## #   `0~4세...97` &lt;dbl&gt;, `5~9세...98` &lt;dbl&gt;, `10~14세...99` &lt;dbl&gt;,
+## #   `15~19세...100` &lt;dbl&gt;, `20~24세...101` &lt;dbl&gt;, `25~29세...102` &lt;dbl&gt;,
+## #   `30~34세...103` &lt;dbl&gt;, `35~39세...104` &lt;dbl&gt;, `40~44세...105` &lt;dbl&gt;, ...</code></pre>
+<ul>
+<li>만일 변수명을 데이터로부터 읽지 않으려면 다음과 같이 한다.
+<ul>
+<li>4행까지 건너뛰고 : <code>skip=4</code></li>
+<li>변수명 읽는 행 없이 바로 데이터로 읽기 : <code>col_names=FALSE</code></li>
+</ul></li>
+</ul>
+<pre class="r"><code>dat &lt;- read_excel(&quot;./data/pops/cc/200812_201012_연령별인구현황_연간.xlsx&quot;, skip=4, col_names=FALSE)</code></pre>
+<pre><code>## New names:
+## * `` -&gt; ...1
+## * `` -&gt; ...2
+## * `` -&gt; ...3
+## * `` -&gt; ...4
+## * `` -&gt; ...5
+## * ...</code></pre>
+<pre class="r"><code>dat</code></pre>
+<pre><code>## # A tibble: 26 x 209
+##    ...1  ...2    ...3   ...4  ...5  ...6  ...7  ...8  ...9 ...10 ...11 ...12
+##    &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 4211~ 강원도 ~ 261975 261975 11381 15326 18927 18260 17214 19038 17812 22623
+##  2 4211~ 강원도 ~   7531   7531   264   289   353   433   459   481   462   500
+##  3 4211~ 강원도 ~   6025   6025   284   331   333   375   376   381   372   483
+##  4 4211~ 강원도 ~   1613   1613    38    48    58    74   110    87    55    80
+##  5 4211~ 강원도 ~   2603   2603    58    76   135   163   193   158   112   156
+##  6 4211~ 강원도 ~   1130   1130    27    22    25    38    53    61    43    53
+##  7 4211~ 강원도 ~   4151   4151   109   127   155   229   219   216   173   193
+##  8 4211~ 강원도 ~   2600   2600    55    90   117   146   148   128    85   129
+##  9 4211~ 강원도 ~    886    886    10    14    26    50    35    27    25    38
+## 10 4211~ 강원도 ~  10585  10585   642   670   714   620   589   788   882  1018
+## # ... with 16 more rows, and 197 more variables: ...13 &lt;dbl&gt;, ...14 &lt;dbl&gt;,
+## #   ...15 &lt;dbl&gt;, ...16 &lt;dbl&gt;, ...17 &lt;dbl&gt;, ...18 &lt;dbl&gt;, ...19 &lt;dbl&gt;,
+## #   ...20 &lt;dbl&gt;, ...21 &lt;dbl&gt;, ...22 &lt;dbl&gt;, ...23 &lt;dbl&gt;, ...24 &lt;dbl&gt;,
+## #   ...25 &lt;dbl&gt;, ...26 &lt;dbl&gt;, ...27 &lt;dbl&gt;, ...28 &lt;dbl&gt;, ...29 &lt;dbl&gt;,
+## #   ...30 &lt;dbl&gt;, ...31 &lt;dbl&gt;, ...32 &lt;dbl&gt;, ...33 &lt;dbl&gt;, ...34 &lt;dbl&gt;,
+## #   ...35 &lt;dbl&gt;, ...36 &lt;dbl&gt;, ...37 &lt;dbl&gt;, ...38 &lt;dbl&gt;, ...39 &lt;dbl&gt;,
+## #   ...40 &lt;dbl&gt;, ...41 &lt;dbl&gt;, ...42 &lt;dbl&gt;, ...43 &lt;dbl&gt;, ...44 &lt;dbl&gt;,
+## #   ...45 &lt;dbl&gt;, ...46 &lt;dbl&gt;, ...47 &lt;dbl&gt;, ...48 &lt;dbl&gt;, ...49 &lt;dbl&gt;,
+## #   ...50 &lt;dbl&gt;, ...51 &lt;dbl&gt;, ...52 &lt;dbl&gt;, ...53 &lt;dbl&gt;, ...54 &lt;dbl&gt;,
+## #   ...55 &lt;dbl&gt;, ...56 &lt;dbl&gt;, ...57 &lt;dbl&gt;, ...58 &lt;dbl&gt;, ...59 &lt;dbl&gt;,
+## #   ...60 &lt;dbl&gt;, ...61 &lt;dbl&gt;, ...62 &lt;dbl&gt;, ...63 &lt;dbl&gt;, ...64 &lt;dbl&gt;,
+## #   ...65 &lt;dbl&gt;, ...66 &lt;dbl&gt;, ...67 &lt;dbl&gt;, ...68 &lt;dbl&gt;, ...69 &lt;dbl&gt;,
+## #   ...70 &lt;dbl&gt;, ...71 &lt;dbl&gt;, ...72 &lt;dbl&gt;, ...73 &lt;dbl&gt;, ...74 &lt;dbl&gt;,
+## #   ...75 &lt;dbl&gt;, ...76 &lt;dbl&gt;, ...77 &lt;dbl&gt;, ...78 &lt;dbl&gt;, ...79 &lt;dbl&gt;,
+## #   ...80 &lt;dbl&gt;, ...81 &lt;dbl&gt;, ...82 &lt;dbl&gt;, ...83 &lt;dbl&gt;, ...84 &lt;dbl&gt;,
+## #   ...85 &lt;dbl&gt;, ...86 &lt;dbl&gt;, ...87 &lt;dbl&gt;, ...88 &lt;dbl&gt;, ...89 &lt;dbl&gt;,
+## #   ...90 &lt;dbl&gt;, ...91 &lt;dbl&gt;, ...92 &lt;dbl&gt;, ...93 &lt;dbl&gt;, ...94 &lt;dbl&gt;,
+## #   ...95 &lt;dbl&gt;, ...96 &lt;dbl&gt;, ...97 &lt;dbl&gt;, ...98 &lt;dbl&gt;, ...99 &lt;dbl&gt;,
+## #   ...100 &lt;dbl&gt;, ...101 &lt;dbl&gt;, ...102 &lt;dbl&gt;, ...103 &lt;dbl&gt;, ...104 &lt;dbl&gt;,
+## #   ...105 &lt;dbl&gt;, ...106 &lt;dbl&gt;, ...107 &lt;dbl&gt;, ...108 &lt;dbl&gt;, ...109 &lt;dbl&gt;,
+## #   ...110 &lt;dbl&gt;, ...111 &lt;dbl&gt;, ...112 &lt;dbl&gt;, ...</code></pre>
+</div>
+<div id="변수명-재정의하기" class="section level3">
+<h3>변수명 재정의하기</h3>
+<p>앞서 만든 변수명은 처음 두 열의 이름(행정기관 코드와 읍면동 이름)이 빠져 있어 다음과 같이 두 열의 이름을 추가하여 정의해 준다.</p>
+<pre class="r"><code>names( dat ) &lt;- c( &quot;code&quot;, &quot;region&quot;, var_names )
+names( dat )</code></pre>
+<pre><code>##   [1] &quot;code&quot;                     &quot;region&quot;                  
+##   [3] &quot;2008년_계_총 인구수&quot;      &quot;2008년_계_연령구간인구수&quot;
+##   [5] &quot;2008년_계_0~4세&quot;          &quot;2008년_계_5~9세&quot;         
+##   [7] &quot;2008년_계_10~14세&quot;        &quot;2008년_계_15~19세&quot;       
+##   [9] &quot;2008년_계_20~24세&quot;        &quot;2008년_계_25~29세&quot;       
+##  [11] &quot;2008년_계_30~34세&quot;        &quot;2008년_계_35~39세&quot;       
+##  [13] &quot;2008년_계_40~44세&quot;        &quot;2008년_계_45~49세&quot;       
+##  [15] &quot;2008년_계_50~54세&quot;        &quot;2008년_계_55~59세&quot;       
+##  [17] &quot;2008년_계_60~64세&quot;        &quot;2008년_계_65~69세&quot;       
+##  [19] &quot;2008년_계_70~74세&quot;        &quot;2008년_계_75~79세&quot;       
+##  [21] &quot;2008년_계_80~84세&quot;        &quot;2008년_계_85~89세&quot;       
+##  [23] &quot;2008년_계_90~94세&quot;        &quot;2008년_계_95~99세&quot;       
+##  [25] &quot;2008년_계_100세 이상&quot;     &quot;2008년_남_남 인구수&quot;     
+##  [27] &quot;2008년_남_연령구간인구수&quot; &quot;2008년_남_0~4세&quot;         
+##  [29] &quot;2008년_남_5~9세&quot;          &quot;2008년_남_10~14세&quot;       
+##  [31] &quot;2008년_남_15~19세&quot;        &quot;2008년_남_20~24세&quot;       
+##  [33] &quot;2008년_남_25~29세&quot;        &quot;2008년_남_30~34세&quot;       
+##  [35] &quot;2008년_남_35~39세&quot;        &quot;2008년_남_40~44세&quot;       
+##  [37] &quot;2008년_남_45~49세&quot;        &quot;2008년_남_50~54세&quot;       
+##  [39] &quot;2008년_남_55~59세&quot;        &quot;2008년_남_60~64세&quot;       
+##  [41] &quot;2008년_남_65~69세&quot;        &quot;2008년_남_70~74세&quot;       
+##  [43] &quot;2008년_남_75~79세&quot;        &quot;2008년_남_80~84세&quot;       
+##  [45] &quot;2008년_남_85~89세&quot;        &quot;2008년_남_90~94세&quot;       
+##  [47] &quot;2008년_남_95~99세&quot;        &quot;2008년_남_100세 이상&quot;    
+##  [49] &quot;2008년_여_여 인구수&quot;      &quot;2008년_여_연령구간인구수&quot;
+##  [51] &quot;2008년_여_0~4세&quot;          &quot;2008년_여_5~9세&quot;         
+##  [53] &quot;2008년_여_10~14세&quot;        &quot;2008년_여_15~19세&quot;       
+##  [55] &quot;2008년_여_20~24세&quot;        &quot;2008년_여_25~29세&quot;       
+##  [57] &quot;2008년_여_30~34세&quot;        &quot;2008년_여_35~39세&quot;       
+##  [59] &quot;2008년_여_40~44세&quot;        &quot;2008년_여_45~49세&quot;       
+##  [61] &quot;2008년_여_50~54세&quot;        &quot;2008년_여_55~59세&quot;       
+##  [63] &quot;2008년_여_60~64세&quot;        &quot;2008년_여_65~69세&quot;       
+##  [65] &quot;2008년_여_70~74세&quot;        &quot;2008년_여_75~79세&quot;       
+##  [67] &quot;2008년_여_80~84세&quot;        &quot;2008년_여_85~89세&quot;       
+##  [69] &quot;2008년_여_90~94세&quot;        &quot;2008년_여_95~99세&quot;       
+##  [71] &quot;2008년_여_100세 이상&quot;     &quot;2009년_계_총 인구수&quot;     
+##  [73] &quot;2009년_계_연령구간인구수&quot; &quot;2009년_계_0~4세&quot;         
+##  [75] &quot;2009년_계_5~9세&quot;          &quot;2009년_계_10~14세&quot;       
+##  [77] &quot;2009년_계_15~19세&quot;        &quot;2009년_계_20~24세&quot;       
+##  [79] &quot;2009년_계_25~29세&quot;        &quot;2009년_계_30~34세&quot;       
+##  [81] &quot;2009년_계_35~39세&quot;        &quot;2009년_계_40~44세&quot;       
+##  [83] &quot;2009년_계_45~49세&quot;        &quot;2009년_계_50~54세&quot;       
+##  [85] &quot;2009년_계_55~59세&quot;        &quot;2009년_계_60~64세&quot;       
+##  [87] &quot;2009년_계_65~69세&quot;        &quot;2009년_계_70~74세&quot;       
+##  [89] &quot;2009년_계_75~79세&quot;        &quot;2009년_계_80~84세&quot;       
+##  [91] &quot;2009년_계_85~89세&quot;        &quot;2009년_계_90~94세&quot;       
+##  [93] &quot;2009년_계_95~99세&quot;        &quot;2009년_계_100세 이상&quot;    
+##  [95] &quot;2009년_남_총 인구수&quot;      &quot;2009년_남_연령구간인구수&quot;
+##  [97] &quot;2009년_남_0~4세&quot;          &quot;2009년_남_5~9세&quot;         
+##  [99] &quot;2009년_남_10~14세&quot;        &quot;2009년_남_15~19세&quot;       
+## [101] &quot;2009년_남_20~24세&quot;        &quot;2009년_남_25~29세&quot;       
+## [103] &quot;2009년_남_30~34세&quot;        &quot;2009년_남_35~39세&quot;       
+## [105] &quot;2009년_남_40~44세&quot;        &quot;2009년_남_45~49세&quot;       
+## [107] &quot;2009년_남_50~54세&quot;        &quot;2009년_남_55~59세&quot;       
+## [109] &quot;2009년_남_60~64세&quot;        &quot;2009년_남_65~69세&quot;       
+## [111] &quot;2009년_남_70~74세&quot;        &quot;2009년_남_75~79세&quot;       
+## [113] &quot;2009년_남_80~84세&quot;        &quot;2009년_남_85~89세&quot;       
+## [115] &quot;2009년_남_90~94세&quot;        &quot;2009년_남_95~99세&quot;       
+## [117] &quot;2009년_남_100세 이상&quot;     &quot;2009년_여_총 인구수&quot;     
+## [119] &quot;2009년_여_연령구간인구수&quot; &quot;2009년_여_0~4세&quot;         
+## [121] &quot;2009년_여_5~9세&quot;          &quot;2009년_여_10~14세&quot;       
+## [123] &quot;2009년_여_15~19세&quot;        &quot;2009년_여_20~24세&quot;       
+## [125] &quot;2009년_여_25~29세&quot;        &quot;2009년_여_30~34세&quot;       
+## [127] &quot;2009년_여_35~39세&quot;        &quot;2009년_여_40~44세&quot;       
+## [129] &quot;2009년_여_45~49세&quot;        &quot;2009년_여_50~54세&quot;       
+## [131] &quot;2009년_여_55~59세&quot;        &quot;2009년_여_60~64세&quot;       
+## [133] &quot;2009년_여_65~69세&quot;        &quot;2009년_여_70~74세&quot;       
+## [135] &quot;2009년_여_75~79세&quot;        &quot;2009년_여_80~84세&quot;       
+## [137] &quot;2009년_여_85~89세&quot;        &quot;2009년_여_90~94세&quot;       
+## [139] &quot;2009년_여_95~99세&quot;        &quot;2009년_여_100세 이상&quot;    
+## [141] &quot;2010년_계_총 인구수&quot;      &quot;2010년_계_연령구간인구수&quot;
+## [143] &quot;2010년_계_0~4세&quot;          &quot;2010년_계_5~9세&quot;         
+## [145] &quot;2010년_계_10~14세&quot;        &quot;2010년_계_15~19세&quot;       
+## [147] &quot;2010년_계_20~24세&quot;        &quot;2010년_계_25~29세&quot;       
+## [149] &quot;2010년_계_30~34세&quot;        &quot;2010년_계_35~39세&quot;       
+## [151] &quot;2010년_계_40~44세&quot;        &quot;2010년_계_45~49세&quot;       
+## [153] &quot;2010년_계_50~54세&quot;        &quot;2010년_계_55~59세&quot;       
+## [155] &quot;2010년_계_60~64세&quot;        &quot;2010년_계_65~69세&quot;       
+## [157] &quot;2010년_계_70~74세&quot;        &quot;2010년_계_75~79세&quot;       
+## [159] &quot;2010년_계_80~84세&quot;        &quot;2010년_계_85~89세&quot;       
+## [161] &quot;2010년_계_90~94세&quot;        &quot;2010년_계_95~99세&quot;       
+## [163] &quot;2010년_계_100세 이상&quot;     &quot;2010년_남_총 인구수&quot;     
+## [165] &quot;2010년_남_연령구간인구수&quot; &quot;2010년_남_0~4세&quot;         
+## [167] &quot;2010년_남_5~9세&quot;          &quot;2010년_남_10~14세&quot;       
+## [169] &quot;2010년_남_15~19세&quot;        &quot;2010년_남_20~24세&quot;       
+## [171] &quot;2010년_남_25~29세&quot;        &quot;2010년_남_30~34세&quot;       
+## [173] &quot;2010년_남_35~39세&quot;        &quot;2010년_남_40~44세&quot;       
+## [175] &quot;2010년_남_45~49세&quot;        &quot;2010년_남_50~54세&quot;       
+## [177] &quot;2010년_남_55~59세&quot;        &quot;2010년_남_60~64세&quot;       
+## [179] &quot;2010년_남_65~69세&quot;        &quot;2010년_남_70~74세&quot;       
+## [181] &quot;2010년_남_75~79세&quot;        &quot;2010년_남_80~84세&quot;       
+## [183] &quot;2010년_남_85~89세&quot;        &quot;2010년_남_90~94세&quot;       
+## [185] &quot;2010년_남_95~99세&quot;        &quot;2010년_남_100세 이상&quot;    
+## [187] &quot;2010년_여_총 인구수&quot;      &quot;2010년_여_연령구간인구수&quot;
+## [189] &quot;2010년_여_0~4세&quot;          &quot;2010년_여_5~9세&quot;         
+## [191] &quot;2010년_여_10~14세&quot;        &quot;2010년_여_15~19세&quot;       
+## [193] &quot;2010년_여_20~24세&quot;        &quot;2010년_여_25~29세&quot;       
+## [195] &quot;2010년_여_30~34세&quot;        &quot;2010년_여_35~39세&quot;       
+## [197] &quot;2010년_여_40~44세&quot;        &quot;2010년_여_45~49세&quot;       
+## [199] &quot;2010년_여_50~54세&quot;        &quot;2010년_여_55~59세&quot;       
+## [201] &quot;2010년_여_60~64세&quot;        &quot;2010년_여_65~69세&quot;       
+## [203] &quot;2010년_여_70~74세&quot;        &quot;2010년_여_75~79세&quot;       
+## [205] &quot;2010년_여_80~84세&quot;        &quot;2010년_여_85~89세&quot;       
+## [207] &quot;2010년_여_90~94세&quot;        &quot;2010년_여_95~99세&quot;       
+## [209] &quot;2010년_여_100세 이상&quot;</code></pre>
+</div>
+</div>
+<div id="long-format-데이터-만들기" class="section level2">
+<h2>Long Format 데이터 만들기</h2>
+<p><code>tidyverse</code> 패키지 (내의 <code>dplyr</code> 패키지)에서 제공하는 함수 <code>gather()</code>는 wide format 데이터를 long format 데이터로 변환하는 기능을 한다. 이 함수를 이용하여 위의 데이터를 long format 데이터로 변환해 보자.</p>
+<pre class="r"><code>dat %&gt;%
+  gather(key=&quot;age_grp&quot;, value=&quot;pops&quot;, -(1:2))</code></pre>
+<pre><code>## # A tibble: 5,382 x 4
+##    code       region               age_grp               pops
+##    &lt;chr&gt;      &lt;chr&gt;                &lt;chr&gt;                &lt;dbl&gt;
+##  1 4211000000 강원도 춘천시        2008년_계_총 인구수 261975
+##  2 4211025000 강원도 춘천시 신북읍 2008년_계_총 인구수   7531
+##  3 4211031000 강원도 춘천시 동면   2008년_계_총 인구수   6025
+##  4 4211032000 강원도 춘천시 동산면 2008년_계_총 인구수   1613
+##  5 4211033000 강원도 춘천시 신동면 2008년_계_총 인구수   2603
+##  6 4211034000 강원도 춘천시 남면   2008년_계_총 인구수   1130
+##  7 4211035000 강원도 춘천시 서면   2008년_계_총 인구수   4151
+##  8 4211036000 강원도 춘천시 사북면 2008년_계_총 인구수   2600
+##  9 4211038000 강원도 춘천시 북산면 2008년_계_총 인구수    886
+## 10 4211039000 강원도 춘천시 동내면 2008년_계_총 인구수  10585
+## # ... with 5,372 more rows</code></pre>
+<p>마지막으로 위에서 생성한 <code>age_grp</code>열의 값을 <code>separate()</code> 함수를 이용하여 언더스코어(_)를 분리자로 하여 각 열에 배치하는 것으로 주민등록 데이터를 R에서 쉽게 사용할 수 있도록 변환하는 과정이 끝이 난다.</p>
+<pre class="r"><code>dat %&gt;%
+  gather(key=&quot;age_grp&quot;, value=&quot;pops&quot;, -(1:2)) %&gt;%
+  separate(age_grp, into=c(&quot;year&quot;, &quot;grp&quot;, &quot;age_grp&quot;), sep=&quot;_&quot;) -&gt; dat_lf</code></pre>
 </div>
 
   

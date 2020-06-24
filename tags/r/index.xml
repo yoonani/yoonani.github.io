@@ -13,13 +13,13 @@
     
     
     <item>
-      <title>newly posting</title>
+      <title>주민등록 인구를 가져와 tidy 데이터로 만들기</title>
       <link>/post/newly-posting/</link>
       <pubDate>Wed, 24 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/post/newly-posting/</guid>
       <description>데이터 얻기주민등록 인구춘천시 주민등록인구 현황행정안전부 주민등록인구통계위의 링크 중 행정안전부 주민등록인구통계를 통해 춘천의 읍면동별 년간 인구와 읍면동별 년간 5세단위 자료를 구함
-데이터 읽기dat1 &amp;lt;- read_excel(&amp;quot;./data/pops/cc/200812_201012_연령별인구현황_연간.xlsx&amp;quot;)## New names:## * `` -&amp;gt; ...2## * `` -&amp;gt; ...3## * `` -&amp;gt; ...4## * `` -&amp;gt; ...5## * `` -&amp;gt; ...6## * ...dat1## # A tibble: 29 x 209## `※ 매년 말일자 통계 현황~ .</description>
+데이터 읽기dat1 &amp;lt;- read_excel(&amp;quot;./data/pops/cc/200812_201012_연령별인구현황_연간.xlsx&amp;quot;)## New names:## * `` -&amp;gt; ...2## * `` -&amp;gt; ...3## * `` -&amp;gt; ...4## * `` -&amp;gt; ...5## * `` -&amp;gt; ...6## * ...이렇게 가져올 경우 Excel은 데이터와 다른 객체(텍스트, 요약 자료, 도형, 도표)가 분리되어 있지 않아 데이터 부분만 따로 가져올 필요가 있다.</description>
     </item>
     
   </channel>
