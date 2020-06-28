@@ -276,13 +276,14 @@
 <li><a href="#데이터-다시-읽기">데이터 다시 읽기</a></li>
 <li><a href="#변수명-재정의하기">변수명 재정의하기</a></li>
 </ul></li>
-<li><a href="#tidy-데이터">tidy 데이터</a><ul>
+<li><a href="#tidy-데이터로-만들기">tidy 데이터로 만들기</a><ul>
 <li><a href="#wide2long">wide2long</a></li>
 <li><a href="#필요한-열-생성하기">필요한 열 생성하기</a></li>
 </ul></li>
 </ul>
 </div>
 
+<p>춘천시의 읍면동별 인구현황과 함께 어떤 변화가 있었는지 알아보고자 한다.</p>
 <div id="데이터-얻기" class="section level2">
 <h2>데이터 얻기</h2>
 <div id="주민등록-인구" class="section level3">
@@ -291,22 +292,18 @@
 <li><a href="https://www.chuncheon.go.kr/board/list.chuncheon?boardId=BBS_0000294&amp;menuCd=DOM_000000505006002000&amp;contentsSid=1889&amp;cpath=">춘천시 주민등록인구 현황</a></li>
 <li><a href="http://27.101.213.4">행정안전부 주민등록인구통계</a></li>
 </ul>
-<p>위의 링크 중 행정안전부 주민등록인구통계를 통해 춘천의 읍면동별 년간 인구와 읍면동별 년간 5세단위 자료를 구하였음</p>
+<p>위의 링크 중 행정안전부 주민등록인구통계를 통해 춘천의 읍면동별 년간 인구와 읍면동별 년간 5세단위 자료를 구하였고 이를 통해 무언가를 좀 찾아보고자 한다. 다음은 행정안전부에서 제공하는 자료에 대한 간략한 설명이다.</p>
+<ul>
+<li>주민등록 인구와 세대수와 연령별 인구현황을 별도의 메뉴로 제공하고 있으며, 행정구역, 조회기간 등을 사용자로 부터 입력받아 해당 자료의 크기에 따라 기간별 제한이 있다.</li>
+<li>제공하는 파일은 csv와 Excel 두 유형이다.</li>
+</ul>
 </div>
 <div id="데이터-읽기" class="section level3">
 <h3>데이터 읽기</h3>
 <pre class="r"><code>dat1 &lt;- read_excel(&quot;./data/pops/cc/200812_201012_연령별인구현황_연간.xlsx&quot;)</code></pre>
-<pre><code>## New names:
-## * `` -&gt; ...2
-## * `` -&gt; ...3
-## * `` -&gt; ...4
-## * `` -&gt; ...5
-## * `` -&gt; ...6
-## * ...</code></pre>
-<p>이렇게 가져올 경우 Excel은 데이터와 다른 객체(텍스트, 요약 자료, 도형, 도표)가 분리되어 있지 않아 데이터 부분만 따로 가져올 필요가 있다.</p>
-<p>다음은 위의 데이터 일부를 보고 있는 것으로 다음과 같은 것을 파악할 수 있다.</p>
+<p>Excel은 기본적으로 데이터와 다른 객체(설명, 그래프, 요약 값등)가 분리되지 않아 데이터를 한번 살펴볼 필요가 있다. 다음은 위의 데이터를 다운로드 받아 우선 살펴본 후 다음과 같은 자료의 특성을 파악할 수 있었다.</p>
 <ul>
-<li>불필요한 부분이 포함되어 있어 데이터를 읽어오는데 구조상 오류를 보이고 있다.</li>
+<li>첫줄에 있는 자료는 데이터가 아닌 설명을 담고 있다.</li>
 <li>각 열의 제목이 여러 행에 걸쳐 있다.</li>
 <li>각 열의 제목이 여러 열을 병합하여 이루고 있다.</li>
 <li>3열부터는 각 년도별, 분류별(계, 남, 여)로 5세 단위 인구로 되어 있다.
@@ -316,44 +313,40 @@
 <li>실제 데이터는 5행 부터 시작된다. (변수명 포함시 4행부터)</li>
 </ul>
 <pre class="r"><code>dat1</code></pre>
-<pre><code>## # A tibble: 29 x 209
-##    `※ 매년 말일자 통계 현황~ ...2  ...3  ...4  ...5  ...6  ...7  ...8  ...9  ...10 ...11
-##    &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
-##  1 &lt;NA&gt;             &lt;NA&gt;  2008~ &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 
-##  2 &lt;NA&gt;             &lt;NA&gt;  계    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 
-##  3 행정기관코드     행정기관~ 총 인구~ 연령구간~ 0~4세 5~9세 10~1~ 15~1~ 20~2~ 25~2~ 30~3~
-##  4 4211000000       강원도 ~ 2619~ 2619~ 11381 15326 18927 18260 17214 19038 17812
-##  5 4211025000       강원도 ~ 7531  7531  264   289   353   433   459   481   462  
-##  6 4211031000       강원도 ~ 6025  6025  284   331   333   375   376   381   372  
-##  7 4211032000       강원도 ~ 1613  1613  38    48    58    74    110   87    55   
-##  8 4211033000       강원도 ~ 2603  2603  58    76    135   163   193   158   112  
-##  9 4211034000       강원도 ~ 1130  1130  27    22    25    38    53    61    43   
-## 10 4211035000       강원도 ~ 4151  4151  109   127   155   229   219   216   173  
-## # ... with 19 more rows, and 198 more variables: ...12 &lt;chr&gt;, ...13 &lt;chr&gt;,
-## #   ...14 &lt;chr&gt;, ...15 &lt;chr&gt;, ...16 &lt;chr&gt;, ...17 &lt;chr&gt;, ...18 &lt;chr&gt;,
-## #   ...19 &lt;chr&gt;, ...20 &lt;chr&gt;, ...21 &lt;chr&gt;, ...22 &lt;chr&gt;, ...23 &lt;chr&gt;,
-## #   ...24 &lt;chr&gt;, ...25 &lt;chr&gt;, ...26 &lt;chr&gt;, ...27 &lt;chr&gt;, ...28 &lt;chr&gt;,
-## #   ...29 &lt;chr&gt;, ...30 &lt;chr&gt;, ...31 &lt;chr&gt;, ...32 &lt;chr&gt;, ...33 &lt;chr&gt;,
-## #   ...34 &lt;chr&gt;, ...35 &lt;chr&gt;, ...36 &lt;chr&gt;, ...37 &lt;chr&gt;, ...38 &lt;chr&gt;,
-## #   ...39 &lt;chr&gt;, ...40 &lt;chr&gt;, ...41 &lt;chr&gt;, ...42 &lt;chr&gt;, ...43 &lt;chr&gt;,
-## #   ...44 &lt;chr&gt;, ...45 &lt;chr&gt;, ...46 &lt;chr&gt;, ...47 &lt;chr&gt;, ...48 &lt;chr&gt;,
-## #   ...49 &lt;chr&gt;, ...50 &lt;chr&gt;, ...51 &lt;chr&gt;, ...52 &lt;chr&gt;, ...53 &lt;chr&gt;,
-## #   ...54 &lt;chr&gt;, ...55 &lt;chr&gt;, ...56 &lt;chr&gt;, ...57 &lt;chr&gt;, ...58 &lt;chr&gt;,
-## #   ...59 &lt;chr&gt;, ...60 &lt;chr&gt;, ...61 &lt;chr&gt;, ...62 &lt;chr&gt;, ...63 &lt;chr&gt;,
-## #   ...64 &lt;chr&gt;, ...65 &lt;chr&gt;, ...66 &lt;chr&gt;, ...67 &lt;chr&gt;, ...68 &lt;chr&gt;,
-## #   ...69 &lt;chr&gt;, ...70 &lt;chr&gt;, ...71 &lt;chr&gt;, ...72 &lt;chr&gt;, ...73 &lt;chr&gt;,
-## #   ...74 &lt;chr&gt;, ...75 &lt;chr&gt;, ...76 &lt;chr&gt;, ...77 &lt;chr&gt;, ...78 &lt;chr&gt;,
-## #   ...79 &lt;chr&gt;, ...80 &lt;chr&gt;, ...81 &lt;chr&gt;, ...82 &lt;chr&gt;, ...83 &lt;chr&gt;,
-## #   ...84 &lt;chr&gt;, ...85 &lt;chr&gt;, ...86 &lt;chr&gt;, ...87 &lt;chr&gt;, ...88 &lt;chr&gt;,
-## #   ...89 &lt;chr&gt;, ...90 &lt;chr&gt;, ...91 &lt;chr&gt;, ...92 &lt;chr&gt;, ...93 &lt;chr&gt;,
-## #   ...94 &lt;chr&gt;, ...95 &lt;chr&gt;, ...96 &lt;chr&gt;, ...97 &lt;chr&gt;, ...98 &lt;chr&gt;,
-## #   ...99 &lt;chr&gt;, ...100 &lt;chr&gt;, ...101 &lt;chr&gt;, ...102 &lt;chr&gt;, ...103 &lt;chr&gt;,
-## #   ...104 &lt;chr&gt;, ...105 &lt;chr&gt;, ...106 &lt;chr&gt;, ...107 &lt;chr&gt;, ...108 &lt;chr&gt;,
-## #   ...109 &lt;chr&gt;, ...110 &lt;chr&gt;, ...111 &lt;chr&gt;, ...</code></pre>
+<pre><code>## # A tibble: 6 x 209
+##   `※ 매년 말일자 통계 현황~ ...2  ...3  ...4  ...5  ...6  ...7  ...8  ...9  ...10 ...11
+##   &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+## 1 &lt;NA&gt;             &lt;NA&gt;  2008~ &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 
+## 2 &lt;NA&gt;             &lt;NA&gt;  계    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 
+## 3 행정기관코드     행정기관~ 총 인구~ 연령구간~ 0~4세 5~9세 10~1~ 15~1~ 20~2~ 25~2~ 30~3~
+## 4 4211000000       강원도 ~ 2619~ 2619~ 11381 15326 18927 18260 17214 19038 17812
+## 5 4211025000       강원도 ~ 7531  7531  264   289   353   433   459   481   462  
+## 6 4211031000       강원도 ~ 6025  6025  284   331   333   375   376   381   372  
+## # ... with 198 more variables: ...12 &lt;chr&gt;, ...13 &lt;chr&gt;, ...14 &lt;chr&gt;,
+## #   ...15 &lt;chr&gt;, ...16 &lt;chr&gt;, ...17 &lt;chr&gt;, ...18 &lt;chr&gt;, ...19 &lt;chr&gt;,
+## #   ...20 &lt;chr&gt;, ...21 &lt;chr&gt;, ...22 &lt;chr&gt;, ...23 &lt;chr&gt;, ...24 &lt;chr&gt;,
+## #   ...25 &lt;chr&gt;, ...26 &lt;chr&gt;, ...27 &lt;chr&gt;, ...28 &lt;chr&gt;, ...29 &lt;chr&gt;,
+## #   ...30 &lt;chr&gt;, ...31 &lt;chr&gt;, ...32 &lt;chr&gt;, ...33 &lt;chr&gt;, ...34 &lt;chr&gt;,
+## #   ...35 &lt;chr&gt;, ...36 &lt;chr&gt;, ...37 &lt;chr&gt;, ...38 &lt;chr&gt;, ...39 &lt;chr&gt;,
+## #   ...40 &lt;chr&gt;, ...41 &lt;chr&gt;, ...42 &lt;chr&gt;, ...43 &lt;chr&gt;, ...44 &lt;chr&gt;,
+## #   ...45 &lt;chr&gt;, ...46 &lt;chr&gt;, ...47 &lt;chr&gt;, ...48 &lt;chr&gt;, ...49 &lt;chr&gt;,
+## #   ...50 &lt;chr&gt;, ...51 &lt;chr&gt;, ...52 &lt;chr&gt;, ...53 &lt;chr&gt;, ...54 &lt;chr&gt;,
+## #   ...55 &lt;chr&gt;, ...56 &lt;chr&gt;, ...57 &lt;chr&gt;, ...58 &lt;chr&gt;, ...59 &lt;chr&gt;,
+## #   ...60 &lt;chr&gt;, ...61 &lt;chr&gt;, ...62 &lt;chr&gt;, ...63 &lt;chr&gt;, ...64 &lt;chr&gt;,
+## #   ...65 &lt;chr&gt;, ...66 &lt;chr&gt;, ...67 &lt;chr&gt;, ...68 &lt;chr&gt;, ...69 &lt;chr&gt;,
+## #   ...70 &lt;chr&gt;, ...71 &lt;chr&gt;, ...72 &lt;chr&gt;, ...73 &lt;chr&gt;, ...74 &lt;chr&gt;,
+## #   ...75 &lt;chr&gt;, ...76 &lt;chr&gt;, ...77 &lt;chr&gt;, ...78 &lt;chr&gt;, ...79 &lt;chr&gt;,
+## #   ...80 &lt;chr&gt;, ...81 &lt;chr&gt;, ...82 &lt;chr&gt;, ...83 &lt;chr&gt;, ...84 &lt;chr&gt;,
+## #   ...85 &lt;chr&gt;, ...86 &lt;chr&gt;, ...87 &lt;chr&gt;, ...88 &lt;chr&gt;, ...89 &lt;chr&gt;,
+## #   ...90 &lt;chr&gt;, ...91 &lt;chr&gt;, ...92 &lt;chr&gt;, ...93 &lt;chr&gt;, ...94 &lt;chr&gt;,
+## #   ...95 &lt;chr&gt;, ...96 &lt;chr&gt;, ...97 &lt;chr&gt;, ...98 &lt;chr&gt;, ...99 &lt;chr&gt;,
+## #   ...100 &lt;chr&gt;, ...101 &lt;chr&gt;, ...102 &lt;chr&gt;, ...103 &lt;chr&gt;, ...104 &lt;chr&gt;,
+## #   ...105 &lt;chr&gt;, ...106 &lt;chr&gt;, ...107 &lt;chr&gt;, ...108 &lt;chr&gt;, ...109 &lt;chr&gt;,
+## #   ...110 &lt;chr&gt;, ...111 &lt;chr&gt;, ...</code></pre>
 </div>
 <div id="열-이름-재지정하기" class="section level3">
 <h3>열 이름 재지정하기</h3>
-<p>위의 자료에서 첫번째 행은 년도 정보를 갖고 있다.</p>
+<p>위에서 읽어온 자료의 경우 Excel 파일의 첫번째 행의 값을 변수명으로 판단하고 있으며, 두번째 행부터 자료로 읽어왔다. 이렇게 읽어온 자료는 변수 <code>dat1</code>에 tibble 형태로 저장되어 있으며, 이 자료 중 첫번째 행은 년도 정보를 갖고 있다.</p>
 <ul>
 <li><code>paste()</code> 함수를 이용하여 첫번째 행의 각 데이터를 문자열 데이터로 만들어 확인하면 다음과 같다.</li>
 </ul>
@@ -516,8 +509,26 @@
 ## [197] &quot;50~54세&quot;        &quot;55~59세&quot;        &quot;60~64세&quot;        &quot;65~69세&quot;       
 ## [201] &quot;70~74세&quot;        &quot;75~79세&quot;        &quot;80~84세&quot;        &quot;85~89세&quot;       
 ## [205] &quot;90~94세&quot;        &quot;95~99세&quot;        &quot;100세 이상&quot;</code></pre>
-<p>이제 최종적으로 열 이름을 새롭게 만들어 보면 다음과 같다.
-조금 복잡한 이유는 마지막 단계가 각 열의 이름이고, 그 윗 단계인 구분(계, 남, 여)가 년도별로 들어가야 하므로 이를 고려하여 먼저 구분의 반복이 년도별로 계,….,계, 남, …, 남, 여, ….여)과 같이 만들고 이를 다시 년도별로 나누기 위해 <code>rep()</code>함수에 <code>rep</code>인수를 이용하였다.</p>
+<p>이제 최종적으로 열 이름을 세 개의 행에 걸쳐 새롭게 만들어 보면 다음과 같다.</p>
+<ul>
+<li>세번째에 있는 연령 단위가 각 열의 이름이고, 그 윗 단계인 성별 구분(계, 남, 여)이 년도별로 들어가야 한다.
+<ul>
+<li>세번째 행의 연령 단위별 변수명은 그대로 사용한다. (변수 <code>vars</code>에 저장)</li>
+</ul></li>
+<li>(성별)구분의 반복이 년도별 “계,….,계, 남, …, 남, 여, ….여”가 만들어지도록 하였다. (변수 <code>grps</code>에 저장)
+<ul>
+<li>우선 기존에 비어 있는 열의 값은 문자열 <code>"NA"</code>이며 이를 결측을 나타내는 <code>NA</code>로 변경한다.</li>
+<li><code>read_excel()</code> 함수의 <code>na</code>인수에 “NA”를 넣어 읽어올때 결측값을 지정할 수 있다.</li>
+</ul></li>
+<li>년도값 또한 성별 구분인 계, 남, 여 별로 연령 구간만큼 존재해야 한다.
+<ul>
+<li>필요한 년도의 갯수는 아래와 같이 구해 변수 <code>years</code>에 저장</li>
+</ul></li>
+<li>앞으로 이 세개의 값을 합쳐 변수명으로 사용하고자 한다.
+<ul>
+<li><code>"년도_구분_연령단위"</code>로 만들어 변수 <code>var_names</code>에 저장하였다.</li>
+</ul></li>
+</ul>
 <pre class="r"><code>years &lt;- names( table( ifelse( paste( dat1[1, ] ) == &quot;NA&quot;, NA, paste(dat1[1, ]) ) ) )
 grps &lt;- names( table( ifelse( paste( dat1[2, ] ) == &quot;NA&quot;, NA, paste(dat1[2, ]) ) ) )
 vars &lt;- paste(dat1[3, -(1:2)])
@@ -761,8 +772,8 @@ names( dat )</code></pre>
 ## [209] &quot;2010년_여_100세 이상&quot;</code></pre>
 </div>
 </div>
-<div id="tidy-데이터" class="section level2">
-<h2>tidy 데이터</h2>
+<div id="tidy-데이터로-만들기" class="section level2">
+<h2>tidy 데이터로 만들기</h2>
 <div id="wide2long" class="section level3">
 <h3>wide2long</h3>
 <p><code>tidyverse</code> 패키지 (내의 <code>dplyr</code> 패키지)에서 제공하는 함수 <code>gather()</code>는 wide format 데이터를 long format 데이터로 변환하는 기능을 한다. 이 함수를 이용하여 위의 데이터를 long format 데이터로 변환해 보자.</p>
@@ -785,7 +796,7 @@ names( dat )</code></pre>
 </div>
 <div id="필요한-열-생성하기" class="section level3">
 <h3>필요한 열 생성하기</h3>
-<p>마지막으로 위에서 생성한 <code>age_grp</code>열의 값을 <code>separate()</code> 함수를 이용하여 언더스코어(_)를 분리자로 하여 각 열에 배치하는 것으로 Excel로 저장된 주민등록 데이터를 R에서 쉽게 사용할 수 있도록 변환하는 과정이 끝이 난다.</p>
+<p>마지막으로 위에서 생성한 <code>age_grp</code>열의 값을 <code>separate()</code> 함수를 이용하여 언더스코어(_)를 분리자로 기존 열의 값을 분리하고 지정한 각 열에 배치하는 것으로 이 과정을 통해 Excel로 저장된 주민등록 데이터를 R에서 읽고 분석에 조금 용이하게 하기 위해 tidy 데이터 유형으로 변경하였다.</p>
 <pre class="r"><code>dat %&gt;%
   gather(key=&quot;age_grp&quot;, value=&quot;pops&quot;, -(1:2)) %&gt;%
   separate(age_grp, into=c(&quot;year&quot;, &quot;grp&quot;, &quot;age_grp&quot;), sep=&quot;_&quot;)</code></pre>
