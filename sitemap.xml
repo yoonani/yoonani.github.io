@@ -1,99 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
-  <url>
-    <loc>/</loc>
-    <lastmod>2020-07-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/date/</loc>
-    <lastmod>2020-07-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/lubridate/</loc>
-    <lastmod>2020-07-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
-    <lastmod>2020-07-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/r/</loc>
-    <lastmod>2020-07-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/date_time_in_r/</loc>
-    <lastmod>2020-07-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
-    <lastmod>2020-07-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/data-preparation/</loc>
-    <lastmod>2020-06-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/newly-posting/</loc>
-    <lastmod>2020-06-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/excel%EC%9D%BD%EA%B8%B0/</loc>
-    <lastmod>2020-06-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/tidy/</loc>
-    <lastmod>2020-06-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%84%EC%B2%98%EB%A6%AC/</loc>
-    <lastmod>2020-06-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/2015-07-23-r-rmarkdown/</loc>
-    <lastmod>2015-07-23T21:13:14-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/plot/</loc>
-    <lastmod>2015-07-23T21:13:14-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/r-markdown/</loc>
-    <lastmod>2015-07-23T21:13:14-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/regression/</loc>
-    <lastmod>2015-07-23T21:13:14-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/about/</loc>
-    <lastmod>2014-04-09T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/contact/</loc>
-    <lastmod>2014-04-09T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/topics/</loc>
-  </url>
-  
-</urlset>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"><url>
+    <loc>/categories/</loc><lastmod>2020-07-20T00:00:00+00:00</lastmod></url><url>
+    <loc>/</loc><lastmod>2020-07-20T00:00:00+00:00</lastmod></url><url>
+    <loc>/tags/date/</loc><lastmod>2020-07-20T00:00:00+00:00</lastmod></url><url>
+    <loc>/tags/lubridate/</loc><lastmod>2020-07-20T00:00:00+00:00</lastmod></url><url>
+    <loc>/post/</loc><lastmod>2020-07-20T00:00:00+00:00</lastmod></url><url>
+    <loc>/tags/r/</loc><lastmod>2020-07-20T00:00:00+00:00</lastmod></url><url>
+    <loc>/categories/r-%EA%B8%B0%EC%B4%88/</loc><lastmod>2020-07-20T00:00:00+00:00</lastmod></url><url>
+    <loc>/post/date_time_in_r/</loc><lastmod>2020-07-20T00:00:00+00:00</lastmod></url><url>
+    <loc>/tags/</loc><lastmod>2020-07-20T00:00:00+00:00</lastmod></url><url>
+    <loc>/tags/data-preparation/</loc><lastmod>2020-06-24T00:00:00+00:00</lastmod></url><url>
+    <loc>/post/newly-posting/</loc><lastmod>2020-06-24T00:00:00+00:00</lastmod></url><url>
+    <loc>/tags/excel%EC%9D%BD%EA%B8%B0/</loc><lastmod>2020-06-24T00:00:00+00:00</lastmod></url><url>
+    <loc>/categories/r-%ED%99%9C%EC%9A%A9/</loc><lastmod>2020-06-24T00:00:00+00:00</lastmod></url><url>
+    <loc>/tags/tidy/</loc><lastmod>2020-06-24T00:00:00+00:00</lastmod></url><url>
+    <loc>/tags/%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%84%EC%B2%98%EB%A6%AC/</loc><lastmod>2020-06-24T00:00:00+00:00</lastmod></url><url>
+    <loc>/about/</loc><lastmod>2014-04-09T00:00:00+00:00</lastmod></url><url>
+    <loc>/contact/</loc><lastmod>2014-04-09T00:00:00+00:00</lastmod></url><url>
+    <loc>/topics/</loc></url></urlset>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>R - 활용 on Data blog</title>
+    <link>/categories/r-%ED%99%9C%EC%9A%A9/</link>
+    <description>Recent content in R - 활용 on Data blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>BY-SA under CCL V3</copyright>
+    <lastBuildDate>Wed, 24 Jun 2020 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="/categories/r-%ED%99%9C%EC%9A%A9/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Excel로 저장된 주민등록 인구수를 R로 읽어 tidy 데이터로 변환하기</title>
+      <link>/post/newly-posting/</link>
+      <pubDate>Wed, 24 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/newly-posting/</guid>
+      <description>데이터 얻기 주민등록 인구 데이터 읽기 열 이름 재지정하기 데이터 다시 읽기 변수명 재정의하기 tidy 데이터로 변환하기기 wide2long 필요한 열 생성하기 춘천시의 읍면동별 인구현황</description>
+      
+    </item>
+    
+  </channel>
+</rss>

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tags on Data blog</title>
     <link>/tags/</link>
@@ -9,7 +9,7 @@
     <copyright>BY-SA under CCL V3</copyright>
     <lastBuildDate>Mon, 20 Jul 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -19,6 +19,7 @@
       
       <guid>/tags/date/</guid>
       <description></description>
+      
     </item>
     
     <item>
@@ -28,6 +29,7 @@
       
       <guid>/tags/lubridate/</guid>
       <description></description>
+      
     </item>
     
     <item>
@@ -37,6 +39,7 @@
       
       <guid>/tags/r/</guid>
       <description></description>
+      
     </item>
     
     <item>
@@ -46,6 +49,7 @@
       
       <guid>/tags/data-preparation/</guid>
       <description></description>
+      
     </item>
     
     <item>
@@ -55,6 +59,7 @@
       
       <guid>/tags/excel%EC%9D%BD%EA%B8%B0/</guid>
       <description></description>
+      
     </item>
     
     <item>
@@ -64,6 +69,7 @@
       
       <guid>/tags/tidy/</guid>
       <description></description>
+      
     </item>
     
     <item>
@@ -73,33 +79,7 @@
       
       <guid>/tags/%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%84%EC%B2%98%EB%A6%AC/</guid>
       <description></description>
-    </item>
-    
-    <item>
-      <title>plot</title>
-      <link>/tags/plot/</link>
-      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
       
-      <guid>/tags/plot/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>R Markdown</title>
-      <link>/tags/r-markdown/</link>
-      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
-      
-      <guid>/tags/r-markdown/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>regression</title>
-      <link>/tags/regression/</link>
-      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
-      
-      <guid>/tags/regression/</guid>
-      <description></description>
     </item>
     
   </channel>
