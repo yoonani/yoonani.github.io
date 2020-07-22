@@ -7,10 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
     <copyright>BY-SA under CCL V3</copyright>
-    <lastBuildDate>Wed, 24 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 20 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>R에서 날짜와 시간</title>
+      <link>/post/date_time_in_r/</link>
+      <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/date_time_in_r/</guid>
+      <description>날짜와 시간R에서 날짜와 시간 : 처음으로 살펴보기우리는 다음과 같은 문자열을 보면 어떤 생각을 하나요?
+“2020-12-25 00:00:01 KST”
+KST가 조금 걸리지만, 2020년 12월 25일 1초를 생각할 것입니다. 문자열 임에도 위의 표현을 보고 시간을 떠올리는 것은 당연할 것입니다.(날짜와 시간을 표현하는 국제 표준은 ISO 86011로 이를 따르는 문자열을 사용했으며 해당 표준에 시간대를 표시하는 문자열이 들어가 있어서 우리나라 표준시임을 알리는 KST를 뒤에 붙혔습니다.)
+R에서 날짜와 시간은 기본적으로 문자로 표현할 수 있습니다.</description>
+    </item>
     
     <item>
       <title>Excel로 저장된 주민등록 인구수를 R로 읽어 tidy 데이터로 변환하기</title>

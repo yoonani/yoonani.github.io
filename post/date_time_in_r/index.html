@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.63.2" />
+
+  <title>R에서 날짜와 시간 &middot; Data blog</title>
+
+    
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">Culture Lab</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/contact/"><i class='fa fa-phone fa-fw'></i>Contact</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://twitter.com/*" rel="me" target="_blank"><i class="fab fa-twitter-square fa-fw"></i>Twitter</a>
+    </li>
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://facebook.com/*" rel="me" target="_blank"><i class="fab fa-facebook-square fa-fw"></i>Facebook</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://instagram.com/yoonani" rel="me" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://linkedin.com/in/*" rel="me" target="_blank"><i class="fab fa-linkedin"></i></i>LinkedIn</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/yoonani" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://stackoverflow.com/users/*" rel="me" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>Stack Overflow</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>BY-SA under CCL V3</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>R에서 날짜와 시간</h1>
+  <h2></h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2020-07-20</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/r">R</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/date">Date</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/lubridate">lubridate</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  
+
+
+<div id="날짜와-시간" class="section level2">
+<h2>날짜와 시간</h2>
+<div id="r에서-날짜와-시간-처음으로-살펴보기" class="section level3">
+<h3>R에서 날짜와 시간 : 처음으로 살펴보기</h3>
+<p>우리는 다음과 같은 문자열을 보면 어떤 생각을 하나요?</p>
+<blockquote>
+<p>“2020-12-25 00:00:01 KST”</p>
+</blockquote>
+<p>KST가 조금 걸리지만, 2020년 12월 25일 1초를 생각할 것입니다. 문자열 임에도 위의 표현을 보고 시간을 떠올리는 것은 당연할 것입니다.(날짜와 시간을 표현하는 국제 표준은 ISO 8601<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>로 이를 따르는 문자열을 사용했으며 해당 표준에 시간대를 표시하는 문자열이 들어가 있어서 우리나라 표준시임을 알리는 KST를 뒤에 붙혔습니다.)</p>
+<p>R에서 날짜와 시간은 기본적으로 문자로 표현할 수 있습니다.</p>
+<p>하지만, 아직은 컴퓨터의 입장에서는 단지 문자열일 뿐 날짜형의 자료는 아닙니다. 이제 R에서 주어진 데이터가 날짜와 시간을 나타내는 것임을 알 수 있도록 합니다.</p>
+<p>날짜와 시간와 시간은 R에서 다른 유형으로 저장됩니다.</p>
+<p>날짜는 Date 클래스로 저장되며, 함수 <code>as.Date()</code>로 문자열로 작성한 날짜를 Date 클래스로 변환합니다.</p>
+<pre class="r"><code>d1 &lt;- as.Date(&quot;1970-01-01&quot;)
+class( d1 )</code></pre>
+<pre><code>## [1] &quot;Date&quot;</code></pre>
+<pre class="r"><code>d1</code></pre>
+<pre><code>## [1] &quot;1970-01-01&quot;</code></pre>
+<p>시간은 POSIXct와 POSIXlt 클래스로 저장되며 각각 <code>as.POSIXct()</code>, <code>as.POSIXlt()</code> 함수를 이용해서 작성합니다.
+R 함수 <code>Sys.time()</code>은 현재 시간을 반환하는 함수로 시간 정보를 반환합니다.</p>
+<pre class="r"><code>t1 &lt;- Sys.time()
+t1</code></pre>
+<pre><code>## [1] &quot;2020-07-22 19:10:03 KST&quot;</code></pre>
+<p>시간을 이야기하면서 조금 어려운 용어인 POSIX이 등장했습니다. POSIX은 Portable Operating System Interface의 약자로 IEEE가 제정한 유닉스 계열의 운영체제가 사용하는 API 규격으로 서로 다른 운영체제들간의 호환성을 높이는 표준으로 작동합니다.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> 이와 같은 표준은 서로 다른 운영체제라도 지원을 한다면 다른 운영체제로의 전환이 쉽게 이뤄져 그 사용성을 높힐 수 있습니다.</p>
+<p>날짜와 시간은 아주 다양한 컴퓨터들에서 사용하고 서로간의 약속으로 만일 그 값들이 서로 다르다면 큰 혼란이 생길것입니다. 그래서 많은 프로그래밍 환경에서는 날짜와 시간을 저장하는 표준을 따르게 하여 이런 혼란을 예방합니다. POSIX에서 제안하는 시간 정보 저장 유형은 단일 문자열로 저장하는 <strong>ct</strong>(Continuous Time)과 날짜와 시간을 구성하는 ‘년/월/일 시:분:초’ 등을 개별 리스트로 저장하는 <strong>lt</strong>(List Time) 두 가지가 있습니다.</p>
+<p>위의 예에서 <code>t1</code>의 값 2020-07-22 19:10:03이 POSIXct 형태의 시간 표현입니다. 이 값은 다음과 같이 숫자로 변경해서 살펴보면 1970년 1월 1일 00:00:00을 기준으로 초단위로 1씩 증가하는 값입니다. (이를 UNIX 시간(time)이라고 하며 32비트를 그 크기로 하여 2038년 1월 19일 그 값이 종료됩니다.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>)</p>
+<pre class="r"><code>t1</code></pre>
+<pre><code>## [1] &quot;2020-07-22 19:10:03 KST&quot;</code></pre>
+<pre class="r"><code>class( t1 )</code></pre>
+<pre><code>## [1] &quot;POSIXct&quot; &quot;POSIXt&quot;</code></pre>
+<pre class="r"><code>as.numeric( t1 )</code></pre>
+<pre><code>## [1] 1595412603</code></pre>
+<p>POSIXlt 형태의 시간을 살펴봅시다.</p>
+<ul>
+<li>현재 시간을 POSIXlt로 변환한 후 객체 유형을 출력해 보면 POSIXlt 이다.</li>
+<li><code>attributes()</code> 함수를 이용하여 속성들을 출력해 보면, <code>names</code>, <code>class</code>, <code>tzone</code> 의 세 개의 속성을 갖고 있다.</li>
+<li>POSIXlt는 list 로 Vector로 변환하여 시간 정보를 그 요소에 따라 구분한 것을 확인할 수 있습니다. (names 속성이 있는 list를 해체하면, 이름이 있는 Vector가 됩니다)</li>
+</ul>
+<p>POSIXlt가 필요한 이유는 각 국가별로 년월일 표시를 일월년, 월일년 등 다양하게 하므로 하나의 시간을 나타내는 문자보다는 이와같이 시간을 구성하는 각 구성요소를 별도로 저장하여 각 국가에 맞게 출력하는 것이 타당하기 때문입니다.</p>
+<pre class="r"><code>time.list &lt;- as.POSIXlt( t1 )
+class( time.list )</code></pre>
+<pre><code>## [1] &quot;POSIXlt&quot; &quot;POSIXt&quot;</code></pre>
+<pre class="r"><code>attributes( time.list )</code></pre>
+<pre><code>## $names
+##  [1] &quot;sec&quot;    &quot;min&quot;    &quot;hour&quot;   &quot;mday&quot;   &quot;mon&quot;    &quot;year&quot;   &quot;wday&quot;   &quot;yday&quot;  
+##  [9] &quot;isdst&quot;  &quot;zone&quot;   &quot;gmtoff&quot;
+## 
+## $class
+## [1] &quot;POSIXlt&quot; &quot;POSIXt&quot; 
+## 
+## $tzone
+## [1] &quot;&quot;    &quot;KST&quot; &quot;KDT&quot;</code></pre>
+<pre class="r"><code>unlist( time.list )</code></pre>
+<pre><code>##                sec                min               hour               mday 
+## &quot;3.34847402572632&quot;               &quot;10&quot;               &quot;19&quot;               &quot;22&quot; 
+##                mon               year               wday               yday 
+##                &quot;6&quot;              &quot;120&quot;                &quot;3&quot;              &quot;203&quot; 
+##              isdst               zone             gmtoff 
+##                &quot;0&quot;              &quot;KST&quot;            &quot;32400&quot;</code></pre>
+<p>위의 정보에 특이한 몇가지를 보겠습니다.</p>
+<ul>
+<li><dl>
+<dt>mday</dt>
+<dd>각 월의 일
+</dd>
+</dl></li>
+<li><dl>
+<dt>zone</dt>
+<dd>전 세계의 시간대를 구분하는 timezone으로 본 문서에서 다루지 않고 어느 지역의 기준 시간인지를 표현하는 정도로만 밝히겠습니다.
+</dd>
+</dl></li>
+<li><dl>
+<dt>isdst</dt>
+<dd>일광절약시간 적용여부. 즉, Summer Time 적용여부입니다.
+</dd>
+</dl></li>
+<li><dl>
+<dt>wday</dt>
+<dd>요일을 나타내는 것으로 일요일이 0 이고 토요일이 6입니다.
+</dd>
+</dl></li>
+<li><dl>
+<dt>yday</dt>
+<dd>1년중 날 수. 즉, 1년중 몇 번째 날인지를 표현하며 1월 1일이 0입니다.
+</dd>
+</dl></li>
+<li><dl>
+<dt>gmtoff</dt>
+<dd>자오선을 중심으로 양수 값을 가질 경우 오른쪽에 위치한 지역으로 초단위입니다(알 수 없을 경우 0). 영국 런던을 기점으로 웰링턴을 종점으로 하는 시간의 평균시(GMT, Greenwich Mean Time)는 1884년 국제 자오선 회의에서 시작한 세계 시간 표시 규격으로 경도가 15도 차이가 날때 시간이 1시간 차이가 난다는 시차에 대한 표준입니다. gmtoff는 GMT를 중심으로 몇 초를 더하고 빼서 각 지역의 시간을 정하는 것입니다. (우리나라의 경우 GMT +9시간으로 gmtoff로는 32400 : 9시간은 32400초)
+</dd>
+</dl></li>
+</ul>
+<p><em>이후 POSIXct, POSIXlt를 함께 이야기할때</em> <strong>POSIXt</strong> <em>라고 부르겠습니다.</em></p>
+</div>
+<div id="임의의-문자열로-부터-시간-정보-추출하기" class="section level3">
+<h3>임의의 문자열로 부터 시간 정보 추출하기</h3>
+<p>각 국가별로 그들의 문화에 따라 날짜를 나타내는 것이 다릅니다. 또한 “2020년 1월 1일”, “2020-01-01”, “2020/01/01”과 같이 동일한 날짜에 대해 년월일 구분기호를 달리하는 경우도 많습니다. 이럴경우 어떻게 날짜 정보를 제대로 가져올지 알아봅시다.</p>
+<p>우선 기존에 저장되어 있는 날짜 표현은 문자라고 가정하겠습니다.
+다음은 2020년 1월 3일에 대한 서로 다른 표현입니다.</p>
+<pre class="r"><code>dt1 &lt;- &quot;2020년 01월 03일 13:00:11&quot;
+dt2 &lt;- &quot;01/03/2020&quot;
+dt3 &lt;- &quot;2020 01 03&quot;</code></pre>
+<p><code>strptime()</code> 은 R의 기본 함수로 문자로 저장된 날짜와 시간을 POSIXlt 클래스로 변환하는 함수입니다.</p>
+<p><code>strptime()</code> 의 인수 <code>format</code>은 날짜와 시간이 저장된 형태를 나타내는 문자열로 날짜와 시간을 구성하는 요소들을 표현하는 알파벳을 기호 %와 함께 나타냅니다. 아래의 목록은 자주 사용하는 년월일 시분초에 대한 것입니다.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
+<div class="table table-striped">
+<table>
+<thead>
+<tr class="header">
+<th align="center">형식</th>
+<th align="center">설명</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">%Y</td>
+<td align="center">네 자릿수 년도</td>
+</tr>
+<tr class="even">
+<td align="center">%m</td>
+<td align="center">두 자릿수 월</td>
+</tr>
+<tr class="odd">
+<td align="center">%d</td>
+<td align="center">두 자릿수 일</td>
+</tr>
+<tr class="even">
+<td align="center">%w</td>
+<td align="center">요일(0-6, 일요일이 0)</td>
+</tr>
+<tr class="odd">
+<td align="center">%H</td>
+<td align="center">두 자릿수 시간(00-23)</td>
+</tr>
+<tr class="even">
+<td align="center">%M</td>
+<td align="center">두 자릿수 분 (00-59)</td>
+</tr>
+<tr class="odd">
+<td align="center">%S</td>
+<td align="center">두 자릿수 초</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>위에 있는 날짜 시간 문자열을 POSIXt로 변환해 보겠습니다.
+기존 문자열의 년월일 시분초를 구분하는 문자열과 위치를 위의 형식에 맞춥니다.</p>
+<pre class="r"><code>dt1</code></pre>
+<pre><code>## [1] &quot;2020년 01월 03일 13:00:11&quot;</code></pre>
+<pre class="r"><code>sdt1 &lt;- strptime(dt1, format=&quot;%Y년 %m월 %d일 %H:%M:%S&quot;)
+class(sdt1)</code></pre>
+<pre><code>## [1] &quot;POSIXlt&quot; &quot;POSIXt&quot;</code></pre>
+<pre class="r"><code>sdt1</code></pre>
+<pre><code>## [1] &quot;2020-01-03 13:00:11 KST&quot;</code></pre>
+<pre class="r"><code>strptime(dt2, format=&quot;%m/%d/%Y&quot;)</code></pre>
+<pre><code>## [1] &quot;2020-01-03 KST&quot;</code></pre>
+<pre class="r"><code>strptime(dt3, format=&quot;%Y %m %d&quot;)</code></pre>
+<pre><code>## [1] &quot;2020-01-03 KST&quot;</code></pre>
+</div>
+<div id="r에서-날짜와-시간-차이-계산" class="section level3">
+<h3>R에서 날짜와 시간 : 차이 계산</h3>
+<p>날짜간의 차이를 구하는 것은 생각보다 어려운 면이 있습니다. 한 달이 모두 동일한 일수를 갖지 않고 윤년이 있으면 2월의 일수도 변하는 등 현재 사용하는 날짜 표현이 일정하지 않기 때문입니다. 이를 위해 날짜간의 차이를 구하는 것 역시 조금 다르게 R에서는 저장합니다.</p>
+<p>다음의 코드를 봅시다.</p>
+<p>우선 날짜입니다.</p>
+<ul>
+<li><code>t2</code>에는 2020년 12월 25일을 Date 클래스로 변환한 값이 있습니다.</li>
+<li><code>t3</code>에는 2019년 6월 30일을 Date 클래스로 변환한 값이 있습니다.</li>
+<li>두 개의 서로 다른 Date 클래스는 빼기 연산자 <strong>‘-’</strong>로 계산할 수 있습니다. 이를 구하고 변수 diff 에 저장합니다.</li>
+<li>날짜의 차이를 위한 클래스는 <code>difftime</code> 입니다.</li>
+<li>이를 출력해서 살펴보면, 일자(days)를 기준으로 며칠의 차이가 나는지 보여주고 있습니다.</li>
+</ul>
+<pre class="r"><code>t2 &lt;- as.Date(&quot;2020-12-25&quot;)
+t3 &lt;- as.Date(&quot;2019-06-30&quot;)
+
+diff &lt;- t2 - t3
+class( diff )</code></pre>
+<pre><code>## [1] &quot;difftime&quot;</code></pre>
+<pre class="r"><code>diff</code></pre>
+<pre><code>## Time difference of 544 days</code></pre>
+<p>다음을 살펴보면, 시간에 대해서도 마찬가지임을 확인할 수 있습니다.</p>
+<pre class="r"><code>t4 &lt;- as.POSIXct(&quot;2020-12-25 00:00:00&quot;)
+t5 &lt;- as.POSIXlt(&quot;2019-06-30 12:00:00&quot;)
+
+t4 - t5</code></pre>
+<pre><code>## Time difference of 543.5 days</code></pre>
+<p>만일 다음과 같이 <code>difftime()</code> 함수를 사용한다면, 차이 기준을 일수가 아닌 다양한 형태로 구할 수 있으며, difftime 클래스는 <code>as.difftime()</code>으로 생성할 수 있습니다.</p>
+<ul>
+<li><p><code>difftime()</code> 함수는 units 인수를 통해 초, 분, 시간, 일(days), 주로 그 차이를 보여줍니다. (애석하게도 월, 년은 없습니다.)</p></li>
+<li><p><code>as.difftime()</code>을 사용할 때 units 인수를 이용하여 주어진 값의 단위를 알려주어 사용합니다. (units 인수를 사용하지 않을시에는 에러가 발생합니다.)</p></li>
+</ul>
+<pre class="r"><code>difftime(t4, t5, units=&quot;secs&quot;)</code></pre>
+<pre><code>## Time difference of 46958400 secs</code></pre>
+<pre class="r"><code>difftime(t4, t5, units=&quot;mins&quot;)</code></pre>
+<pre><code>## Time difference of 782640 mins</code></pre>
+<pre class="r"><code>difftime(t4, t5, units=&quot;hours&quot;)</code></pre>
+<pre><code>## Time difference of 13044 hours</code></pre>
+<pre class="r"><code>difftime(t4, t5, units=&quot;weeks&quot;)</code></pre>
+<pre><code>## Time difference of 77.64286 weeks</code></pre>
+<pre class="r"><code>as.difftime(30, units=&quot;hours&quot;)</code></pre>
+<pre><code>## Time difference of 30 hours</code></pre>
+<pre class="r"><code>as.difftime(30)</code></pre>
+<pre><code>## Error in as.difftime(30): need explicit units for numeric conversion</code></pre>
+<p>두 시간의 차이에 대한 비교가 가능하여 다음과 같이 일주일 이내 여부 등을 구할 수 있습니다. 비교를 위한 두 항 모두 difftime 클래스여야 하지만 한쪽의 항이 difftime 클래스이면 다른 쪽 항이 일반 숫자여도 비교가 가능합니다.</p>
+<pre class="r"><code>t6 &lt;- as.Date(&quot;2020-01-01&quot;)
+t7 &lt;- as.Date(&quot;2020-01-09&quot;)
+
+ifelse( difftime(t7, t6, units=&quot;weeks&quot;) &gt;= as.difftime(1, units=&quot;weeks&quot;), &quot;1주 이상 차이가 납니다.&quot;, &quot;1주 이내입니다.&quot;)</code></pre>
+<pre><code>## [1] &quot;1주 이상 차이가 납니다.&quot;</code></pre>
+<pre class="r"><code>ifelse( difftime(t7, t6, units=&quot;weeks&quot;) &gt;= 1, &quot;1주 이상 차이가 납니다.&quot;, &quot;1주 이내입니다.&quot;)</code></pre>
+<pre><code>## [1] &quot;1주 이상 차이가 납니다.&quot;</code></pre>
+</div>
+</div>
+<div id="패키지-lubridate" class="section level2">
+<h2>패키지 lubridate</h2>
+<p>RStudio 팀에서 날짜와 시간을 위해 배포하는 패키지 <code>lubridate</code>는 날짜와 시간과 관련한 다양한 함수를 제공하고 있어 보다 편리하게 사용할 수 있도록 도와주고 있습니다. (참고 : <a href="https://github.com/rstudio/cheatsheets/raw/master/lubridate.pdf">lubridate Cheatsheet</a>)</p>
+<p><code>lubridate</code> 는 tidyverse와 함께 설치되지 않으므로 <code>install.packages("lubridate")</code>와 같이 설치할 수 있으며, <code>devtools</code>패키지의 함수 <code>install_github()</code>를 이용하여 <code>devtools::install_github("tidyverse/lubridate")</code>와 같이 설치할 수 있습니다. (원활한 사용을 위해 <code>library(lubridate)</code>를 실행합니다.)</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## -- Attaching packages --------------------- tidyverse 1.3.0 --</code></pre>
+<pre><code>## √ ggplot2 3.3.2     √ purrr   0.3.4
+## √ tibble  3.0.3     √ dplyr   1.0.0
+## √ tidyr   1.1.0     √ stringr 1.4.0
+## √ readr   1.3.1     √ forcats 0.5.0</code></pre>
+<pre><code>## -- Conflicts ------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code># install.packages(&quot;lubridate&quot;)
+# devtools::install_github(&quot;tidyverse/lubridate&quot;)
+library(lubridate)</code></pre>
+<pre><code>## 
+## 다음의 패키지를 부착합니다: &#39;lubridate&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     date, intersect, setdiff, union</code></pre>
+<div id="날짜와-시간-자료-다루기" class="section level3">
+<h3>날짜와 시간 자료 다루기</h3>
+<div id="날짜-구하기" class="section level4">
+<h4>날짜 구하기</h4>
+<p>문자열로 저장된 날짜 정보를 읽어와 현재 <code>Date</code> 클래스 혹은 <code>POSIXct</code> 클래스로 변환하는 함수를 제공합니다.</p>
+<p>함수명은 년도를 위해 <code>y</code>, 월(달)을 위해 <code>m</code>, 날짜를 위해 <code>d</code>을 이용하여 다음과 같은 함수를 제공하고 있습니다.</p>
+<div class="table table-striped">
+<table>
+<thead>
+<tr class="header">
+<th align="center">함수명</th>
+<th align="center">함수사용</th>
+<th align="left">출력</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">ymd()</td>
+<td align="center">ymd(“2020-01-03”)</td>
+<td align="left">2020-01-01</td>
+</tr>
+<tr class="even">
+<td align="center">mdy()</td>
+<td align="center">mdy(“01-03-2020”)</td>
+<td align="left">2020-01-03</td>
+</tr>
+<tr class="odd">
+<td align="center">dmy()</td>
+<td align="center">dmy(“03-01-2020”)</td>
+<td align="left">2020-01-03</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="날짜와-시간-구하기" class="section level4">
+<h4>날짜와 시간 구하기</h4>
+<p><code>ymd_hms()</code>, <code>ymd_hm()</code> 등의 함수를 이용하여 시간 정보를 출력합니다.</p>
+<ul>
+<li><code>ymd_hms()</code>는 시분초까지, <code>ymd_hm()</code>은 시분까지의 정보를 출력합니다.</li>
+<li>시간대를 설정하기 위해서는 인수 <code>tz</code>를 사용하거나 <code>with_tz()</code> 함수를 이용하여 시간대를 지정합니다. (<code>OlsonNames()</code> 함수는 시간대 문자열을 출력해 줍니다.)</li>
+</ul>
+<pre class="r"><code>lt1 &lt;- ymd_hms(&quot;2020-12-25 12:00:01&quot;)
+class(lt1)</code></pre>
+<pre><code>## [1] &quot;POSIXct&quot; &quot;POSIXt&quot;</code></pre>
+<pre class="r"><code>lt1</code></pre>
+<pre><code>## [1] &quot;2020-12-25 12:00:01 UTC&quot;</code></pre>
+<pre class="r"><code>with_tz(lt1, &quot;Asia/Seoul&quot;)</code></pre>
+<pre><code>## [1] &quot;2020-12-25 21:00:01 KST&quot;</code></pre>
+<pre class="r"><code>OlsonNames()[c(1:4, (length(OlsonNames())-4):length(OlsonNames())  )]</code></pre>
+<pre><code>## [1] &quot;Africa/Abidjan&quot;     &quot;Africa/Accra&quot;       &quot;Africa/Addis_Ababa&quot;
+## [4] &quot;Africa/Algiers&quot;     &quot;US/Samoa&quot;           &quot;UTC&quot;               
+## [7] &quot;W-SU&quot;               &quot;WET&quot;                &quot;Zulu&quot;</code></pre>
+</div>
+<div id="시간정보의-각-요소-구하기" class="section level4">
+<h4>시간정보의 각 요소 구하기</h4>
+<p><code>lubridate</code>는 함수 <code>year()</code>, <code>month()</code>, <code>mday()</code>, <code>hour()</code>, <code>minute()</code>, <code>second()</code> 들을 이용하여 년도, 월, 일, 시, 분, 초를 각각 추출해 줍니다.</p>
+<pre class="r"><code>year(lt1)</code></pre>
+<pre><code>## [1] 2020</code></pre>
+<pre class="r"><code>month(lt1)</code></pre>
+<pre><code>## [1] 12</code></pre>
+<pre class="r"><code>mday(lt1)</code></pre>
+<pre><code>## [1] 25</code></pre>
+<pre class="r"><code>hour(lt1)</code></pre>
+<pre><code>## [1] 12</code></pre>
+<pre class="r"><code>minute(lt1)</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code>second(lt1)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<p>그 외 날짜 관련하여 요일과 일년중 년수는 각각 다음과 같이 <code>wday()</code>, <code>yday()</code> 함수를 이용합니다. <code>wday()</code>의 경우 인수 label을 이용하여 문자열로 해당 요일을 출력할 수 있습니다. (label 인수는 앞서 월을 구하는 함수 <code>month()</code>에서도 사용할 수 있습니다.)</p>
+<pre class="r"><code>wday(lt1)</code></pre>
+<pre><code>## [1] 6</code></pre>
+<pre class="r"><code>wday(lt1, label=TRUE)</code></pre>
+<pre><code>## [1] 금
+## Levels: 일 &lt; 월 &lt; 화 &lt; 수 &lt; 목 &lt; 금 &lt; 토</code></pre>
+<pre class="r"><code>yday(lt1)</code></pre>
+<pre><code>## [1] 360</code></pre>
+<p>이렇게 어떤 한 시점을 표현하는 것을 lubridate에서는 <strong>instant</strong>라고 하며, <code>is.instant()</code> 를 통해 instant여부를 확인할 수 있습니다. 이는 다음에 알아볼 시간 간격과 구분되는 자료의 형태입니다.</p>
+</div>
+</div>
+<div id="시간-간격" class="section level3">
+<h3>시간 간격</h3>
+<p>lubridate에서는 두 시점간의 간격에 대해 다음의 세가지 클래스를 지원합니다. R의 기본함수에서도 구할 수 있으나, 다음 중 intervals에 대해 조금 더 알아봅시다.</p>
+<ul>
+<li><dl>
+<dt>durations</dt>
+<dd>두 시점간의 정확한 초수 차이 (절대시간)
+</dd>
+</dl></li>
+<li><dl>
+<dt>periods</dt>
+<dd>일상 생활에서 사용하는 개월, 주, 년 등의 기간 (상대시간)
+</dd>
+</dl></li>
+<li><dl>
+<dt>intervals</dt>
+<dd>시작과 끝 시간 정보를 저장하고 있어 다양한 활용 가능하며, durations와 periods로 변환 가능
+</dd>
+</dl></li>
+</ul>
+<div id="durations" class="section level4">
+<h4>Durations</h4>
+<p>두 시간간의 차이를 나타내는 초로 나타내는 클래스</p>
+<pre class="r"><code>w2002 &lt;- today() - ymd(20020531)
+class( w2002 )</code></pre>
+<pre><code>## [1] &quot;difftime&quot;</code></pre>
+<pre class="r"><code>d.w2002 &lt;- as.duration( w2002 )
+class( d.w2002 )</code></pre>
+<pre><code>## [1] &quot;Duration&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;lubridate&quot;</code></pre>
+<pre class="r"><code>str( d.w2002 )</code></pre>
+<pre><code>## Formal class &#39;Duration&#39; [package &quot;lubridate&quot;] with 1 slot
+##   ..@ .Data: num 5.73e+08</code></pre>
+<pre class="r"><code>d.w2002</code></pre>
+<pre><code>## [1] &quot;572572800s (~18.14 years)&quot;</code></pre>
+<pre class="r"><code>d.w2002@.Data</code></pre>
+<pre><code>## [1] 572572800</code></pre>
+<p>주어진 값별로 얼마만큼의 duration을 갖는지 구하는 함수로 다음과 같이 dxxx() 계열의 함수로 주어진 시간 단위별 초수를 구해줍니다.</p>
+<pre class="r"><code>dseconds(10)</code></pre>
+<pre><code>## [1] &quot;10s&quot;</code></pre>
+<pre class="r"><code>class( dseconds(10) )</code></pre>
+<pre><code>## [1] &quot;Duration&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;lubridate&quot;</code></pre>
+<pre class="r"><code>dminutes(10)</code></pre>
+<pre><code>## [1] &quot;600s (~10 minutes)&quot;</code></pre>
+<pre class="r"><code>dhours( c(6, 12, 18, 24) )</code></pre>
+<pre><code>## [1] &quot;21600s (~6 hours)&quot;  &quot;43200s (~12 hours)&quot; &quot;64800s (~18 hours)&quot;
+## [4] &quot;86400s (~1 days)&quot;</code></pre>
+<pre class="r"><code>ddays( c(1, 7) )</code></pre>
+<pre><code>## [1] &quot;86400s (~1 days)&quot;   &quot;604800s (~1 weeks)&quot;</code></pre>
+<pre class="r"><code>dweeks( 4 )</code></pre>
+<pre><code>## [1] &quot;2419200s (~4 weeks)&quot;</code></pre>
+<pre class="r"><code>dyears( 1 )</code></pre>
+<pre><code>## [1] &quot;31557600s (~1 years)&quot;</code></pre>
+<p>또한 +와 *을 이용한 계산을 수행할 수 있습니다.</p>
+<pre class="r"><code>2 * dweeks(1)</code></pre>
+<pre><code>## [1] &quot;1209600s (~2 weeks)&quot;</code></pre>
+<pre class="r"><code>dyears(1) + dweeks(26) + dhours(12)</code></pre>
+<pre><code>## [1] &quot;47325600s (~1.5 years)&quot;</code></pre>
+<p>마지막으로 특정일을 기준으로 +와 -연산자를 이용한 계산을 수행할 수 있습니다.</p>
+<pre class="r"><code>today() # 오늘을 구하는 함수</code></pre>
+<pre><code>## [1] &quot;2020-07-22&quot;</code></pre>
+<pre class="r"><code>today() + ddays(1) # 내일</code></pre>
+<pre><code>## [1] &quot;2020-07-23&quot;</code></pre>
+<pre class="r"><code>today() - dyears(1) # 1년 전</code></pre>
+<pre><code>## [1] &quot;2019-07-22 18:00:00 UTC&quot;</code></pre>
+</div>
+<div id="periods" class="section level4">
+<h4>Periods</h4>
+<p>periods는 사람들에게 조금 더 친숙한 방법으로 lubridate에서는 duration 앞에 d가 붙는 것을 뺀 함수를 사용합니다. (뒤에 s가 붙는 것에 유의)</p>
+<pre class="r"><code>seconds(10)</code></pre>
+<pre><code>## [1] &quot;10S&quot;</code></pre>
+<pre class="r"><code>class( seconds(10) )</code></pre>
+<pre><code>## [1] &quot;Period&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;lubridate&quot;</code></pre>
+<pre class="r"><code>minutes(10)</code></pre>
+<pre><code>## [1] &quot;10M 0S&quot;</code></pre>
+<pre class="r"><code>hours( c(6, 12, 18, 24) )</code></pre>
+<pre><code>## [1] &quot;6H 0M 0S&quot;  &quot;12H 0M 0S&quot; &quot;18H 0M 0S&quot; &quot;24H 0M 0S&quot;</code></pre>
+<pre class="r"><code>days( c(1, 7) )</code></pre>
+<pre><code>## [1] &quot;1d 0H 0M 0S&quot; &quot;7d 0H 0M 0S&quot;</code></pre>
+<pre class="r"><code>weeks( 4 )</code></pre>
+<pre><code>## [1] &quot;28d 0H 0M 0S&quot;</code></pre>
+<pre class="r"><code>months( today() )</code></pre>
+<pre><code>## [1] &quot;7월&quot;</code></pre>
+<pre class="r"><code>years( 1 )</code></pre>
+<pre><code>## [1] &quot;1y 0m 0d 0H 0M 0S&quot;</code></pre>
+</div>
+<div id="intervals" class="section level4">
+<h4>Intervals</h4>
+<p>이제 조금 더 막강한 intervals에 대해 알아봅시다.
+먼저 다음과 같이 숙박업소의 고객별 투숙정보가 있다고 생각해 봅시다.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
+<pre class="r"><code>customerID &lt;- c(&quot;202001-23&quot;, &quot;202001-25&quot;)
+check_in &lt;- c(&quot;2020-01-21 13:42:32&quot;, &quot;2020-01-24 19:13:09&quot;)
+check_out &lt;- c(&quot;2020-01-25 10:18:14&quot;, &quot;2020-01-26 08:42:51&quot;)
+
+customers &lt;- data.frame(customerID, check_in, check_out, stringsAsFactors = FALSE)
+
+cust_working &lt;- customers %&gt;%
+  mutate(check_in = ymd_hms(check_in)) %&gt;%
+  mutate(check_out = ymd_hms(check_out)) %&gt;%
+  as_tibble()
+
+cust_working</code></pre>
+<pre><code>## # A tibble: 2 x 3
+##   customerID check_in            check_out          
+##   &lt;chr&gt;      &lt;dttm&gt;              &lt;dttm&gt;             
+## 1 202001-23  2020-01-21 13:42:32 2020-01-25 10:18:14
+## 2 202001-25  2020-01-24 19:13:09 2020-01-26 08:42:51</code></pre>
+<p>각 투숙객별 투숙기간을 확인해 봅시다. 투숙기간은 체크아웃 날짜와 체크인 날짜사이의 기간으로 <code>lubridate</code>에서는 함수 <code>interval()</code>과 연산자 <code>%--%</code>을 통해 interval 객체를 만듭니다.</p>
+<pre class="r"><code>cust_working %&gt;%
+  mutate(stay_itv = interval(check_in, check_out)) %&gt;% 
+  select(customerID, stay_itv)</code></pre>
+<pre><code>## # A tibble: 2 x 2
+##   customerID stay_itv                                        
+##   &lt;chr&gt;      &lt;Interval&gt;                                      
+## 1 202001-23  2020-01-21 13:42:32 UTC--2020-01-25 10:18:14 UTC
+## 2 202001-25  2020-01-24 19:13:09 UTC--2020-01-26 08:42:51 UTC</code></pre>
+<pre class="r"><code>cust_working %&gt;%
+  mutate(stay_itv = check_in %--% check_out) %&gt;% 
+  select(customerID, stay_itv)</code></pre>
+<pre><code>## # A tibble: 2 x 2
+##   customerID stay_itv                                        
+##   &lt;chr&gt;      &lt;Interval&gt;                                      
+## 1 202001-23  2020-01-21 13:42:32 UTC--2020-01-25 10:18:14 UTC
+## 2 202001-25  2020-01-24 19:13:09 UTC--2020-01-26 08:42:51 UTC</code></pre>
+<p>두가지 방법으로 interval을 생성해 보았습니다. 결과를 보시면 시작과 종료 시점이 안에 있는 것을 확인할 수 있을 것입니다. 이들을 어떻게 사용하는지 확인해 봅시다.</p>
+<p>우선 위에서 새롭게 만든 열을 데이터로 저장합시다.</p>
+<pre class="r"><code>cust_working %&gt;%
+  mutate(stay_itv = interval(check_in, check_out)) %&gt;% 
+  select(customerID, stay_itv) -&gt; cust_working</code></pre>
+<p>시작일과 종료일을 출력해 봅시다.</p>
+<pre class="r"><code>int_start(cust_working$stay_itv)</code></pre>
+<pre><code>## [1] &quot;2020-01-21 13:42:32 UTC&quot; &quot;2020-01-24 19:13:09 UTC&quot;</code></pre>
+<pre class="r"><code>int_end(cust_working$stay_itv)</code></pre>
+<pre><code>## [1] &quot;2020-01-25 10:18:14 UTC&quot; &quot;2020-01-26 08:42:51 UTC&quot;</code></pre>
+<ul>
+<li><dl>
+<dt>int_start()</dt>
+<dd>interval 객체의 시작시점을 알려줍니다.
+</dd>
+</dl></li>
+<li><dl>
+<dt>int_end()</dt>
+<dd>interval 객체의 종료시점을 알려줍니다.
+</dd>
+</dl></li>
+</ul>
+<p>다음으로 두 interval 간의 계산을 해 봅시다.</p>
+<pre class="r"><code>int_overlaps(cust_working$stay_itv[1], cust_working$stay_itv[2])</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>setdiff(cust_working$stay_itv[1], cust_working$stay_itv[2])</code></pre>
+<pre><code>## [1] 2020-01-21 13:42:32 UTC--2020-01-24 19:13:09 UTC</code></pre>
+<pre class="r"><code>intersect(cust_working$stay_itv[1], cust_working$stay_itv[2])</code></pre>
+<pre><code>## [1] 2020-01-24 19:13:09 UTC--2020-01-25 10:18:14 UTC</code></pre>
+<pre class="r"><code>union(cust_working$stay_itv[1], cust_working$stay_itv[2])</code></pre>
+<pre><code>## [1] 2020-01-21 13:42:32 UTC--2020-01-26 08:42:51 UTC</code></pre>
+<pre class="r"><code>cust_working$stay_itv[1] %within% cust_working$stay_itv[2]</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<ul>
+<li><dl>
+<dt>int_overlaps()</dt>
+<dd>두 시점간에 겹치는 부분이 있으면 TRUE를 그렇지 않으면 FALSE를 반환
+</dd>
+</dl></li>
+<li><dl>
+<dt>setdiff()</dt>
+<dd>먼저 전달되는 인수에서 뒤에 전달되는 인수의 기간(interval)을 뺀 나머지, 즉 순수 첫번째 인수만 존재하는 기간
+</dd>
+</dl></li>
+<li><dl>
+<dt>intersect()</dt>
+<dd>두 기간이 겹치는 기간
+</dd>
+</dl></li>
+<li><dl>
+<dt>union()</dt>
+<dd>두 기간의 합집한 기간
+</dd>
+</dl></li>
+<li><dl>
+<dt>%within% 연산자</dt>
+<dd>연산자 좌측항(instant 혹은 interval)이 우측항(interval 객체)에 포함되면 TRUE, 없으면 FALSE 반환. 만일 우측항이 interval 객체로 구성된 리스트일 경우 우측에 전달하는 기간들 중 하나라도 좌측항이 포함되면 TRUE 반환
+</dd>
+</dl></li>
+</ul>
+<p>구한 기간에 대해 <code>as.duration()</code>와 <code>as.period()</code> 함수를 이용해 각각 durations와 periods로 변환하여 원하는 형태의 기간 값을 구할 수 있습니다.</p>
+<pre class="r"><code>as.duration(cust_working$stay_itv)</code></pre>
+<pre><code>## [1] &quot;333342s (~3.86 days)&quot; &quot;134982s (~1.56 days)&quot;</code></pre>
+<pre class="r"><code>as.period(cust_working$stay_itv)</code></pre>
+<pre><code>## [1] &quot;3d 20H 35M 42S&quot; &quot;1d 13H 29M 42S&quot;</code></pre>
+<p>또한 interval 객체와 duration 객체를 이용한 계산이 가능합니다. 즉 위의 두 명의 고객들의 머문 일수를 확인하려면 다음과 같이 수행합니다.</p>
+<pre class="r"><code>cust_working$stay_itv / ddays(1)</code></pre>
+<pre><code>## [1] 3.858125 1.562292</code></pre>
+<p>위의 결과로 첫번째 고객은 3.9 일을 머물렀음을 확인할 수 있습니다. 위에서 사용한 <code>dweeks()</code>, <code>dyears()</code> 등을 함께 사용해서 확인해 보시면 좋을 것입니다.</p>
+<p>마지막으로 정확한 다음달을 구해봅시다.
+다음의 코드를 살펴봅시다.</p>
+<pre class="r"><code>ymd(&quot;2020-12-25&quot;) + months(1)</code></pre>
+<pre><code>## [1] &quot;2021-01-25&quot;</code></pre>
+</div>
+<div id="정확한-날짜와-시간계산을-위한-연산자-m-m-" class="section level4">
+<h4>정확한 날짜와 시간계산을 위한 연산자 : <strong><code>%m+%</code></strong>, <strong><code>%m-%</code></strong></h4>
+<p>lubridate에서 제공하는 연산자인 <code>%m+%</code>, <code>%m-%</code> 은 정확한 개월단위의 연산을 위해 사용합니다. 다음의 예를 살펴보면, 2020년 1월 31일은 1월달의 마지막 날로써, 한달 후를 구해본 결과로 + 연산자와 %m+% 연산자를 실시한 결과입니다.</p>
+<pre class="r"><code>today()</code></pre>
+<pre><code>## [1] &quot;2020-07-22&quot;</code></pre>
+<pre class="r"><code>ymd(&quot;2020-01-31&quot;) + months(1)</code></pre>
+<pre><code>## [1] NA</code></pre>
+<pre class="r"><code>ymd(&quot;2020-01-31&quot;) %m+% months(1)</code></pre>
+<pre><code>## [1] &quot;2020-02-29&quot;</code></pre>
+<p>+ 연산자의 경우 아마 내부적으로 “2020-02-31”을 구했을 것이고, 실제 그러한 날짜는 없으므로 NA를 반환한 반면 %m+% 연산자는 이를 고려하여 2020년의 2월중 가장 큰 날인 29일을 반환하였습니다. 이와같이 각 달의 마지막날이 서로 상이한 것을 보완하기 위해 사용합니다. 또한, 일반적인 날짜의 경우(월에 상관없이 1일부터 28일) 두 연산자 모두 현재 날짜의 일을 그대로 가져와 구합니다.</p>
+<pre class="r"><code>today()</code></pre>
+<pre><code>## [1] &quot;2020-07-22&quot;</code></pre>
+<pre class="r"><code>ymd(&quot;2020-02-23&quot;) + months(1)</code></pre>
+<pre><code>## [1] &quot;2020-03-23&quot;</code></pre>
+<pre class="r"><code>ymd(&quot;2020-02-23&quot;) %m+% months(1)</code></pre>
+<pre><code>## [1] &quot;2020-03-23&quot;</code></pre>
+<p>짧게나마 R에서 날짜와 시간을 다루는 것과 lubridate 패키지에 대해 알아보았습니다. 궁금한 것이 있으시면 댓글 혹은 메일 주세요(잘못 기술한 것에 대한 지적은 언제나 환영합니다!)</p>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><a href="https://ko.wikipedia.org/wiki/ISO_8601">위키피디아 - ISO 8601</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://ko.wikipedia.org/wiki/POSIX">위키피디아 - POSIX</a><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p><a href="https://ko.wikipedia.org/wiki/%EC%9C%A0%EB%8B%89%EC%8A%A4_%EC%8B%9C%EA%B0%84">위키피디아 - 유닉스 시간</a><a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p><a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/strptime">R 도움말</a><a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>고석범 저, R과 Knitr를 활용한 데이터 연동형 문서만들기 - 빅데이터 시대의 효율적인 자료 작성 가이드, 에이콘 (2014)<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+
+  
+  <h4><i class="fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=%2fpost%2fdate_time_in_r%2f" target="_blank" title="Share on Facebook"><i class="fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=%2fpost%2fdate_time_in_r%2f&via=HorribleGeek" target="_blank" title="Tweet"><i class="fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=%2fpost%2fdate_time_in_r%2f" target="_blank" title="Share on Google+"><i class="fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=%2fpost%2fdate_time_in_r%2f" target="_blank" title="Post to Tumblr"><i class="fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=%2fpost%2fdate_time_in_r%2f" target="_blank" title="Pin it"><i class="fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=%2fpost%2fdate_time_in_r%2f" target="_blank" title="Submit to Reddit"><i class="fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="/post/newly-posting/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="/post/newly-posting/">Excel로 저장된 주민등록 인구수를 R로 읽어 tidy 데이터로 변환하기</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+
+  
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'Your Disqus shortname';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</div>
+
+</div>
+</div>
+<script src="/js/ui.js"></script>
+<script src="/js/menus.js"></script>
+
+
+<script>
+  
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'Your Google Analytics tracking ID', 'auto');
+    ga('send', 'pageview');
+  }
+</script>
+
+
+
+
+
+<script src="/js/math-code.js"></script>
+  <script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
+
+
+</body>
+</html>
+
