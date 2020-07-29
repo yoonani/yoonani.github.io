@@ -273,4 +273,4 @@ str_detect(userid, "o[:digit:]*p")
 
 
 [^1]:정규표현식을 위한 표준은 크게 POSIX 방식과 프로그래밍 언어인 PERL로 부터 제안한 [PCRE (Perl Compatible Regular Expressions)](https://en.wikipedia.org/wiki/Perl_Compatible_Regular_Expressions)의 두 가지가 있습니다.
-[^2]:RStudio 팀의 문서를 보시면 더욱 많은 내용이 있습니다.  [RSrtudio팀의 stringr 에서의 정규표현식 문서 중 반복](https://stringr.tidyverse.org/articles/regular-expressions.html#repetitionㅈ)
+[^2]:RStudio 팀의 문서를 보시면 더욱 많은 내용이 있습니다.  [RSrtudio팀의 stringr 에서의 정규표현식 문서 중 반복](https://stringr.tidyverse.org/articles/regular-expressions.html#repetition)
