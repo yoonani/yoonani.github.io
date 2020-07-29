@@ -7,10 +7,60 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
     <copyright>BY-SA under CCL V3</copyright>
-    <lastBuildDate>Mon, 20 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 27 Jul 2020 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>character</title>
+      <link>/tags/character/</link>
+      <pubDate>Mon, 27 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/character/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>regular_expression</title>
+      <link>/tags/regular_expression/</link>
+      <pubDate>Mon, 27 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/regular_expression/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>strings</title>
+      <link>/tags/strings/</link>
+      <pubDate>Mon, 27 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/strings/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>문자열</title>
+      <link>/tags/%EB%AC%B8%EC%9E%90%EC%97%B4/</link>
+      <pubDate>Mon, 27 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/%EB%AC%B8%EC%9E%90%EC%97%B4/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>정규표현식</title>
+      <link>/tags/%EC%A0%95%EA%B7%9C%ED%91%9C%ED%98%84%EC%8B%9D/</link>
+      <pubDate>Mon, 27 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/%EC%A0%95%EA%B7%9C%ED%91%9C%ED%98%84%EC%8B%9D/</guid>
+      <description></description>
+      
+    </item>
     
     <item>
       <title>Date</title>

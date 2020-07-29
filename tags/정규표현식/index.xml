@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>정규표현식 on Data blog</title>
+    <link>/tags/%EC%A0%95%EA%B7%9C%ED%91%9C%ED%98%84%EC%8B%9D/</link>
+    <description>Recent content in 정규표현식 on Data blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>BY-SA under CCL V3</copyright>
+    <lastBuildDate>Mon, 27 Jul 2020 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="/tags/%EC%A0%95%EA%B7%9C%ED%91%9C%ED%98%84%EC%8B%9D/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>정규표현식 (1)</title>
+      <link>/post/regularexpression_in_r_with_stringr/</link>
+      <pubDate>Mon, 27 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/regularexpression_in_r_with_stringr/</guid>
+      <description>정규표현식(Regular Expression) R에서 정규표현식 주어진 패턴을 포함하는 문자열 이스케이프 문자 문자의 반복 특수한 기호들 정규표현식(Regular Expression) 정규표</description>
+      
+    </item>
+    
+  </channel>
+</rss>
