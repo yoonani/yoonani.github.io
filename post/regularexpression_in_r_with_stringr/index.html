@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en"><meta charset="utf-8"><meta name="generator" content="Hugo 0.73.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<meta name="supported-color-schemes" content="light dark"><title>정규표현식 (1)&nbsp;&ndash;&nbsp;Data blog</title><link rel="stylesheet" href="/css/core.min.27480d158b7b926a781210302f5c757735bd284d5d63217e3c12f77d0c3a192dff947acd78d8f0f9c056a57c7471bc13.css" integrity="sha384-J0gNFYt7kmp4EhAwL1x1dzW9KE1dYyF&#43;PBL3fQw6GS3/lHrNeNjw&#43;cBWpXx0cbwT"><meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="정규표현식 (1)" /><body><section id="header">
+<meta name="supported-color-schemes" content="light dark"><title>정규표현식 - 첫번째&nbsp;&ndash;&nbsp;Data blog</title><link rel="stylesheet" href="/css/core.min.27480d158b7b926a781210302f5c757735bd284d5d63217e3c12f77d0c3a192dff947acd78d8f0f9c056a57c7471bc13.css" integrity="sha384-J0gNFYt7kmp4EhAwL1x1dzW9KE1dYyF&#43;PBL3fQw6GS3/lHrNeNjw&#43;cBWpXx0cbwT"><meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="정규표현식 - 첫번째" /><body><section id="header">
     <div class="header wrap"><span class="header left-side"><a class="site home" href="/"><img class="site logo" src="/CL_logo1.png" alt /><span class="site name">Data blog</span></a></span>
         <span class="header right-side"><div class="nav wrap"><nav class="nav"><a class="nav item" href="/categories/">Categories</a><a class="nav item" href="/tags/">Tags</a></nav></div></span></div></section><section id="content"><div class="article-container"><section class="article header">
-    <h1 class="article title">정규표현식 (1)</h1><p class="article date">2020-07-27</p></section><article class="article markdown-body">
+    <h1 class="article title">정규표현식 - 첫번째</h1><p class="article date">2020-07-27</p></section><article class="article markdown-body">
 
 <div id="TOC">
 <ul>
@@ -148,7 +148,6 @@ expression</code></pre>
 </ul>
 <pre class="r"><code>str_detect(expression, &quot;[+\\-*/]&quot;)</code></pre>
 <pre><code>## [1]  TRUE FALSE</code></pre>
-<p>이스케이프 문자를 이용한 처리는 문자열에서 많이 사용하므로 잘 기억해 주세요.</p>
 </div>
 <div id="문자의-반복" class="section level3">
 <h3>문자의 반복</h3>
@@ -198,9 +197,9 @@ expression</code></pre>
 <ul>
 <li><p>titles 벡터의 첫번째 원소에는 이런 패턴이 존재하고 두번째 원소에는 이런 패턴이 존재하지 않음을 알 수 있습니다.</p></li>
 <li><p>존재할 경우 어떤 문자가 이에 해당하는지 살펴보기 위해 <code>str_extract()</code> 함수를 사용하였으나, 이 함수는 처음 패턴에 해당하는 결과만 보여줍니다.</p></li>
-<li><p>만일 패턴을 만족하는 모든 문자열을 출력하기 위해 <code>str_extract_all()</code> 함수를 사용합니다. <code>stringr</code> 패키지의 함수 중 이와같이 첫번째 패턴을 찾아서 지정한 행동을 하는 함수들과 함께 함수명에 <code>_all</code> 이 붙어 모든 일치하는 패턴에 주어진 행동을 하는 함수들이 존재합니다.</p>
+<li><p>만일 패턴을 만족하는 모든 문자열을 출력하기 위해 <code>str_extract_all()</code> 함수를 사용합니다. 함수 <code>str_extract_all()</code> 은 벡터의 각 원소별로 리스트의 요소를 구성하고 벡터 원소에서 찾아진 모든 결과들을 리스트의 원소(벡터 원소 순서별로)별로 벡터로 저장합니다.</p>
 <ul>
-<li>함수 <code>str_extract_all()</code> 은 벡터의 각 원소별로 리스트의 요소를 구성하고 벡터 원소에서 찾아진 모든 결과들을 리스트의 원소별로 벡터로 저장합니다.</li>
+<li><code>stringr</code> 패키지의 함수 중 이와같이 첫번째 패턴을 찾아서 지정한 행동을 하는 함수들과 함께 함수명에 <code>_all</code> 이 붙어 모든 일치하는 패턴에 주어진 행동을 하는 함수들이 존재합니다.</li>
 </ul></li>
 <li><p>함수 <code>str_extract_all()</code> 은 인수 <code>simplify</code>를 가질 수 있으며 기본값은 <code>FALSE</code>입니다. 만일 simplify인수에 <code>TRUE</code>를 전달하면, 벡터별로 찾은 모든 패턴의 수가 가장 큰 값을 열의 수로 하는 행렬(Matrix)의 형태 결과를 전달합니다.</p></li>
 </ul>
@@ -253,6 +252,93 @@ userid</code></pre>
 <p>그리고 이 반복 기호들은 서로 결합하여 다양한 의미로도 사용합니다.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 <p>갈 길이 아직 많이 남았습니다. 잠시 쉬는 의미로 이번 글에서는 여기까지 설명드리겠습니다. 궁금한 것이 있으시면 아래 메일주소로 말씀주세요.</p>
 </div>
+<div id="이스케이프문자와-문자열-클래스" class="section level4">
+<h4>이스케이프문자와 문자열 클래스</h4>
+<p>이스케이프 문자 이후 몇 개의 문자는 문자열 클래스를 나타냅니다.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">문자열</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">\d</td>
+<td>숫자에 대응</td>
+</tr>
+<tr class="even">
+<td align="center">\s</td>
+<td>임의의 공백문자(줄바꿈, 탭 등)에 대응</td>
+</tr>
+<tr class="odd">
+<td align="center">\p{property}</td>
+<td>문자와 그 문자의 유니코드 속성에 대응</td>
+</tr>
+<tr class="even">
+<td align="center">\w</td>
+<td>임의의 단어에 대응</td>
+</tr>
+<tr class="odd">
+<td align="center">\b</td>
+<td>임의의 단어 경계에 대응</td>
+</tr>
+</tbody>
+</table>
+<p>위 문자열의 대문자들도 존재하며 소문자 이외를 나타냅니다. 다음의 예를 보겠습니다.</p>
+<pre class="r"><code>str &lt;- c(&quot;Do you have 2 phones?&quot;, &quot;전화기를 2대 갖고 계십니까?&quot;)
+
+str_extract_all(str, &quot;\\d&quot;)</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;2&quot;
+## 
+## [[2]]
+## [1] &quot;2&quot;</code></pre>
+<pre class="r"><code>str_extract_all(str, &quot;\\s&quot;)</code></pre>
+<pre><code>## [[1]]
+## [1] &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot;
+## 
+## [[2]]
+## [1] &quot; &quot; &quot; &quot; &quot; &quot;</code></pre>
+<pre class="r"><code>str_extract_all(str, &quot;\\p{Uppercase}&quot;)</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;D&quot;
+## 
+## [[2]]
+## character(0)</code></pre>
+<pre class="r"><code>str_extract_all(str, &quot;\\w+&quot;)</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;Do&quot;     &quot;you&quot;    &quot;have&quot;   &quot;2&quot;      &quot;phones&quot;
+## 
+## [[2]]
+## [1] &quot;전화기를&quot; &quot;2대&quot;      &quot;갖고&quot;     &quot;계십니까&quot;</code></pre>
+<pre class="r"><code>str_split(str, &quot;\\W&quot;)</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;Do&quot;     &quot;you&quot;    &quot;have&quot;   &quot;2&quot;      &quot;phones&quot; &quot;&quot;      
+## 
+## [[2]]
+## [1] &quot;전화기를&quot; &quot;2대&quot;      &quot;갖고&quot;     &quot;계십니까&quot; &quot;&quot;</code></pre>
+<pre class="r"><code>str_extract_all(str[1], &quot;\\b&quot;)</code></pre>
+<pre><code>## [[1]]
+##  [1] &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot;</code></pre>
+<pre class="r"><code>str_replace_all(str[1], &quot;\\b&quot;, &quot;_&quot;)</code></pre>
+<pre><code>## [1] &quot;_Do_ _you_ _have_ _2_ _phones_?&quot;</code></pre>
+<pre class="r"><code>str_replace_all(str[1], &quot;\\B&quot;, &quot;_&quot;)</code></pre>
+<pre><code>## [1] &quot;D_o y_o_u h_a_v_e 2 p_h_o_n_e_s?_&quot;</code></pre>
+<ul>
+<li><code>\d</code>와 <code>\s</code>는 위의 예제를 보시면 어떤 것인지 금방 확인하실 것입니다.</li>
+<li><code>\p{...}</code>의 경우 유니코드에서 지정한 속성(property)<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>을 중괄호안에 넣어 속성에 해당하는 문자열을 가져옵니다.</li>
+<li><code>\w</code>의 경우 반복 기호 <code>+</code>를 종종 같이 사용합니다. (반복기호 없이 사용하고 결과를 비교해 주세요). 만일 대문자 W를 사용한다면, 단어가 아닌 문자열을 뜻하고, 문자열을 분리하는 함수 <code>str_split()</code>과 함께 사용하여 단어가 아닌 문자로 단어를 구분하여 자르고 잘라진 단어들을 벡터로 저장합니다.</li>
+<li><code>\b</code>는 단어 주변을 찾는 것으로 본 예에서는 단어의 앞과 뒤 빈 문자열을 찾았습니다(첫문자 앞도 찾았습니다)
+<ul>
+<li>함수 <code>str_replace_all()</code> 은 찾아진 패턴을 사용자가 원하는 문자열로 바꾸는 함수입니다.</li>
+<li>단어 경계의 문자를 밑줄 문자로 바꾼 예와 함께 대문자 B를 사용한 결과를 비교해 주시기 바랍니다.</li>
+<li>단어 경계가 아닌 것을 찾는 <code>\B</code>를 밑줄 문자로 바꾼 것을 확인할 수 있습니다.</li>
+</ul></li>
+</ul>
+<hr />
+<p>갈 길이 아직 많이 남았습니다. 잠시 쉬는 의미로 이번 글에서는 여기까지 설명드리겠습니다. 궁금한 것이 있으시면 아래 메일주소로 말씀주세요.</p>
+</div>
 </div>
 </div>
 <div class="footnotes">
@@ -260,6 +346,7 @@ userid</code></pre>
 <ol>
 <li id="fn1"><p>정규표현식을 위한 표준은 크게 POSIX 방식과 프로그래밍 언어인 PERL로 부터 제안한 <a href="https://en.wikipedia.org/wiki/Perl_Compatible_Regular_Expressions">PCRE (Perl Compatible Regular Expressions)</a>의 두 가지가 있습니다.<a href="#fnref1" class="footnote-back">↩</a></p></li>
 <li id="fn2"><p>RStudio 팀의 문서를 보시면 더욱 많은 내용이 있습니다. <a href="https://stringr.tidyverse.org/articles/regular-expressions.html#repetition">RSrtudio팀의 stringr 에서의 정규표현식 문서 중 반복</a><a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p><a href="http://www.unicode.org/reports/tr44/#Property_Index">Unicode Property</a><a href="#fnref3" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
 </article><section class="article labels"><a class="category" href=/categories/r-%EA%B8%B0%EC%B4%88/>R - 기초</a><a class="tag" href=/tags/strings/>strings</a><a class="tag" href=/tags/character/>character</a><a class="tag" href=/tags/regular_expression/>regular_expression</a><a class="tag" href=/tags/%EC%A0%95%EA%B7%9C%ED%91%9C%ED%98%84%EC%8B%9D/>정규표현식</a><a class="tag" href=/tags/%EB%AC%B8%EC%9E%90%EC%97%B4/>문자열</a></section></div>
