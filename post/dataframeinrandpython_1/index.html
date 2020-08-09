@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en"><meta charset="utf-8"><meta name="generator" content="Hugo 0.73.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="supported-color-schemes" content="light dark"><title>R과 Python에서 데이터 프레임 - 첫번째 시간&nbsp;&ndash;&nbsp;Data blog</title><link rel="stylesheet" href="/css/core.min.4154b92abc972ace62edf26961ab5214da67d734dda817f751db7e87825607eb685b43a90359ef4e31acca61c0829f0b.css" integrity="sha384-QVS5KryXKs5i7fJpYatSFNpn1zTdqBf3Udt&#43;h4JWB&#43;toW0OpA1nvTjGsymHAgp8L"><meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="R과 Python에서 데이터 프레임 - 첫번째 시간" /><body><section id="header">
+    <div class="header wrap"><span class="header left-side"><a class="site home" href="/"><img class="site logo" src="/CL_logo1.png" alt /><span class="site name">Data blog</span></a></span>
+        <span class="header right-side"><div class="nav wrap"><nav class="nav"><a class="nav item" href="/categories/">Categories</a><a class="nav item" href="/tags/">Tags</a></nav></div></span></div></section><section id="content"><div class="article-container"><section class="article header">
+    <h1 class="article title">R과 Python에서 데이터 프레임 - 첫번째 시간</h1><p class="article date">2020-08-10<span class="reading-time"> • 4 minutes to read</span></p></section><article class="article markdown-body">
+
+<div id="TOC">
+yes
+</div>
+
+<div id="개요" class="section level2">
+<h2>개요</h2>
+<div id="데이터-프레임" class="section level3">
+<h3>데이터 프레임</h3>
+<p>데이터 프레임은 데이터 사이언스에서 자료(data)들의 기본 구조로,
+행과 열을 갖고 있는 테이블 구조로 행(row)은 관찰하고자 하는 대상이며 열(column)은 각 관찰 대상들로 부터 측정하고 하고자 하는 속성들의 집합입니다<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
+<p>만일 20개의 문항으로 이뤄진 설문지를 100명으로부터 응답을 받아 기록한 경우 100개의 행과 20개의 열을 갖는 데이터 프레임으로 불러옵니다.</p>
+</div>
+<div id="r과-python에서의-데이터-프레임" class="section level3">
+<h3>R과 Python에서의 데이터 프레임</h3>
+<p>R은 통계를 위해 개발된 언어로 데이터 프레임을 언어 자체에서 지원하며, 자주 사용하는 데이터 프레임에 대해 다양한 패키지들이 존재<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>하여 사용하기 더욱 편리한 환경을 제공해 주고 있습니다.</p>
+<p>Python의 경우 범용의 언어로 리스트, 튜플, 딕셔너리 등의 자료구조를 제공하고 있으나, 데이터 프레임을 언어 자체에서 지원하지는 않습니다. 대신 <code>pandas</code>라는 데이터 과학을 위한 유용한 모듈이 있어 이를 통해 데이터 프레임을 다룰 수 있습니다<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</p>
+</div>
+</div>
+<div id="데이터-프레임-작업하기" class="section level2">
+<h2>데이터 프레임 작업하기</h2>
+<div id="데이터-설명" class="section level3">
+<h3>데이터 설명</h3>
+<p>자료는 <a href="https://data.kma.go.kr/cmmn/main.do">기상청 기상자료개방포털</a>에서 <em>기후통계분석</em> 메뉴를 통해 다운로드 받은 춘천시의 1966년 1월 1일부터 2020년 8월 8일까지<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> 매일 최고기온, 최저기온 및 평균 기온을 저장한 데이터를 사용하겠습니다.</p>
+</div>
+<div id="데이터-읽기-csv-파일" class="section level3">
+<h3>데이터 읽기 : csv 파일</h3>
+<p>먼저 csv로 되어 있는 데이터 파일을 읽어오겠습니다.</p>
+<p>제공한 파일은 앞 7줄까지 설명 글이 있으며 실 데이터는 8줄부터 시작합니다.</p>
+<div class="figure">
+<img src="/images/001.cc_temp.png" alt="해당 데이터 앞 일부분" />
+<p class="caption">해당 데이터 앞 일부분</p>
+</div>
+<p>이를 위해 R의 경우 <code>tidyverse</code> 패키지에 함께 있는 <code>readr</code> 패키지의 <code>read_csv()</code>를 사용할 것이고, Python의 경우 <code>pandas</code>에서 제공하는 메소드 <code>read_csv()</code>를 이용할 것입니다.</p>
+<div id="r" class="section level4">
+<h4>R</h4>
+<p>자료를 읽어와 변수 <code>temp_cc</code>로 저장하고 데이터 프레임의 행과 열의 수를 세어보았습니다.</p>
+<pre class="r"><code>library( tidyverse )
+
+temp_cc &lt;- read_csv(&quot;./data/temp_cc_195007_202008.csv&quot;, skip=7, locale=locale(&quot;ko&quot;, encoding=&quot;euc-kr&quot;))
+
+str(temp_cc)</code></pre>
+<pre><code>## tibble [19,944 x 5] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+##  $ 날짜        : Date[1:19944], format: &quot;1966-01-01&quot; &quot;1966-01-02&quot; ...
+##  $ 지점        : num [1:19944] 101 101 101 101 101 101 101 101 101 101 ...
+##  $ 평균기온(℃): num [1:19944] -10.1 -8.9 -5.3 -3.3 -6.1 -2.8 -4.3 -7.1 -4.6 -3 ...
+##  $ 최저기온(℃): num [1:19944] -16.9 -15.4 -10.3 -7.7 -12.7 -7.1 -12 -14.3 -9.9 -6.5 ...
+##  $ 최고기온(℃): num [1:19944] -1.4 -0.1 -0.2 1.2 1.9 3.9 2.1 -0.6 2.3 4.2 ...
+##  - attr(*, &quot;spec&quot;)=
+##   .. cols(
+##   ..   날짜 = col_date(format = &quot;&quot;),
+##   ..   지점 = col_double(),
+##   ..   `평균기온(℃)` = col_double(),
+##   ..   `최저기온(℃)` = col_double(),
+##   ..   `최고기온(℃)` = col_double()
+##   .. )</code></pre>
+<pre class="r"><code>nrow(temp_cc)</code></pre>
+<pre><code>## [1] 19944</code></pre>
+<pre class="r"><code>ncol(temp_cc)</code></pre>
+<pre><code>## [1] 5</code></pre>
+</div>
+<div id="python" class="section level4">
+<h4>Python</h4>
+<p>마찬가지로 변수 <code>temp_cc2</code>로 저장하고 행과 열의 수를 세어 보았습니다.</p>
+<pre class="python"><code>import pandas as pd
+
+temp_cc2 = pd.read_csv(&quot;./data/temp_cc_195007_202008.csv&quot;, skiprows=7, encoding=&quot;CP949&quot;)
+
+temp_cc2.info()</code></pre>
+<pre><code>## &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+## RangeIndex: 19944 entries, 0 to 19943
+## Data columns (total 5 columns):
+##  #   Column   Non-Null Count  Dtype  
+## ---  ------   --------------  -----  
+##  0   날짜       19944 non-null  object 
+##  1   지점       19944 non-null  int64  
+##  2   평균기온(℃)  19943 non-null  float64
+##  3   최저기온(℃)  19943 non-null  float64
+##  4   최고기온(℃)  19943 non-null  float64
+## dtypes: float64(3), int64(1), object(1)
+## memory usage: 779.2+ KB</code></pre>
+<pre class="python"><code>len(temp_cc2.index)        # len(temp_cc)</code></pre>
+<pre><code>## 19944</code></pre>
+<pre class="python"><code>len(temp_cc2.columns)</code></pre>
+<pre><code>## 5</code></pre>
+</div>
+</div>
+<div id="열의-이름-바꾸기" class="section level3">
+<h3>열의 이름 바꾸기</h3>
+<p>데이터 파일로 부터 열의 이름은 <code>날짜</code>, <code>지점</code>, <code>평균기온(℃)</code>, <code>최저기온(℃)</code>, <code>최고기온(℃)</code> 입니다. 이를 변경해 봅시다.</p>
+<div id="r-1" class="section level4">
+<h4>R</h4>
+<p>R의 경우 해당 데이터 프레임의 열 이름을 담고 있는 <code>names</code> 속성<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>을 다루는 함수 <code>names()</code>를 이용합니다.</p>
+<ul>
+<li><code>names()</code>함수는 열의 이름을 출력해 줍니다.</li>
+<li><code>names()</code>함수에 벡터를 할당하면 해당 위치의 열 이름을 변경합니다.</li>
+</ul>
+<pre class="r"><code>names(temp_cc)</code></pre>
+<pre><code>## [1] &quot;날짜&quot;         &quot;지점&quot;         &quot;평균기온(℃)&quot; &quot;최저기온(℃)&quot; &quot;최고기온(℃)&quot;</code></pre>
+<pre class="r"><code>names(temp_cc) &lt;- c(&quot;date&quot;, &quot;pointID&quot;, &quot;mean_temp&quot;, &quot;min_temp&quot;, &quot;max_temp&quot;)
+names(temp_cc)</code></pre>
+<pre><code>## [1] &quot;date&quot;      &quot;pointID&quot;   &quot;mean_temp&quot; &quot;min_temp&quot;  &quot;max_temp&quot;</code></pre>
+</div>
+<div id="python-1" class="section level4">
+<h4>Python</h4>
+<p>Python의 경우 읽어 온 데이터는 데이터 프레임 객체이며<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> 해당 객체의 속성과 메소드를 이용합니다.</p>
+<ul>
+<li>열 이름을 출력을 위해 열 속성(.columns)의 값(.values)을 리스트로 출력하는 메소드 <code>tolist()</code>를 이요합니다.</li>
+<li>열 이름 변경은 메소드 <code>rename()</code>을 이용합니다.
+<ul>
+<li>인수 columns에 기존 열이름과 새로운 열이름의 딕셔너리를 전달합니다.</li>
+<li>데이터 프레임 자체에 적용하기 위해 인수 <code>inplace</code>에 갑 <code>True</code>를 전달합니다.</li>
+</ul></li>
+</ul>
+<pre class="python"><code>temp_cc2.columns.values.tolist()</code></pre>
+<pre><code>## [&#39;날짜&#39;, &#39;지점&#39;, &#39;평균기온(℃)&#39;, &#39;최저기온(℃)&#39;, &#39;최고기온(℃)&#39;]</code></pre>
+<pre class="python"><code>temp_cc2.rename(columns={&quot;날짜&quot;: &quot;date&quot;, &quot;지점&quot;: &quot;pointID&quot;, &quot;평균기온(℃)&quot;: &quot;mean_temp&quot;, &quot;최저기온(℃)&quot;: &quot;min_temp&quot;, &quot;최고기온(℃)&quot;: &quot;max_temp&quot;}, inplace=True)
+temp_cc2.columns.values.tolist()</code></pre>
+<pre><code>## [&#39;date&#39;, &#39;pointID&#39;, &#39;mean_temp&#39;, &#39;min_temp&#39;, &#39;max_temp&#39;]</code></pre>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>데이터베이스에서 행은 Record라 부르며, 이 행들의 모임들을 Record Set이라고 부른다. 즉, 데이터 베이스에서는 Record Set 이라고도 한다.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>대표적으로 Rstudio 개발팀에서 제공하는 <code>tidyverse</code> 패키지에 포함되어 있는 <a href="https://tibble.tidyverse.org/"><code>tibble</code></a> 패키지<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p><a href="https://pandas.pydata.org/">pandas 홈페이지</a><a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>설정구간을 1950년 1월 1일로 하였으나, 춘천의 경우 1966년 1월 1일 자료부터 존재하며, 기상자료개방포털에서 춘천은 북춘천과 춘천 두 군데가 존재하며 이중 춘천으로 지역을 설정하였습니다.<a href="#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn5"><p>R에서 다음을 입력해 보세요. attr( temp_cc, “names” )<a href="#fnref5" class="footnote-back">↩</a></p></li>
+<li id="fn6"><p>R도 마찬가지로 객체로 다룹니다.<a href="#fnref6" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+</article><section class="article labels"><a class="category" href=/categories/r-python/>R &amp; Python</a><a class="tag" href=/tags/r/>R</a><a class="tag" href=/tags/python/>Python</a><a class="tag" href=/tags/dataframe/>Dataframe</a></section></div>
+<div class="article bottom"><section class="article navigation"><p><a class="link" href="/post/regularexpression_in_r_with_stringr/"><span class="iconfont icon-article"></span>정규표현식 - 첫번째</a></p></section></div></section><section id="footer"><div class="footer-wrap">
+    <p class="copyright">BY-SA under CCL V3</p>
+    <p class="powerby"><span>Powered&nbsp;by&nbsp;</span><a href="https://gohugo.io" 
+        target="_blank">Hugo</a><span>&nbsp;&amp;&nbsp;</span><a href="https://themes.gohugo.io/hugo-notepadium/" 
+        target="_blank">Notepadium</a></p>
+    <p class="copyright"><span>Email&nbsp;<a href="mailto:yoonani@culture-lab.kr">yoonani@culture-lab.kr</a></span></p></div></section></body>
+
+</html>

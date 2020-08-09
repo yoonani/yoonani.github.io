@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
     <copyright>BY-SA under CCL V3</copyright>
-    <lastBuildDate>Mon, 27 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 10 Aug 2020 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>R과 Python에서 데이터 프레임 - 첫번째 시간</title>
+      <link>/post/dataframeinrandpython_1/</link>
+      <pubDate>Mon, 10 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/dataframeinrandpython_1/</guid>
+      <description>yes 개요 데이터 프레임 데이터 프레임은 데이터 사이언스에서 자료(data)들의 기본 구조로, 행과 열을 갖고 있는 테이블 구조로 행(row)은 관찰하고자 하는 대</description>
+      
+    </item>
     
     <item>
       <title>정규표현식 - 첫번째</title>
