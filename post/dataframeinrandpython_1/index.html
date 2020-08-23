@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><meta charset="utf-8"><meta name="generator" content="Hugo 0.73.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<meta name="supported-color-schemes" content="light dark"><title>R과 Python에서 데이터 프레임 (I)&nbsp;&ndash;&nbsp;Data blog</title><link rel="stylesheet" href="/css/core.min.af5399da4b28864b449582b25e1cecabe5ffbf8d3dba740f0f0ccb5ccceaf03ee5aa7dba6e367c80f56867cc0ef70785.css" integrity="sha384-r1OZ2ksohktElYKyXhzsq&#43;X/v409unQPDwzLXMzq8D7lqn26bjZ8gPVoZ8wO9weF"><meta name="twitter:card" content="summary" />
+<meta name="supported-color-schemes" content="light dark"><title>R과 Python에서 데이터 프레임 (I)&nbsp;&ndash;&nbsp;Data blog</title><link rel="stylesheet" href="/css/core.min.e77dae1a6ab36338edb85b9a0ce112e5c0b04be42f38e62bfac666db5c6cd7b898414552a5cccbcfb566a0ff058434b6.css" integrity="sha384-532uGmqzYzjtuFuaDOES5cCwS&#43;QvOOYr&#43;sZm21xs17iYQUVSpczLz7VmoP8FhDS2"><meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="R과 Python에서 데이터 프레임 (I)" /><body><section id="header">
     <div class="header wrap"><span class="header left-side"><a class="site home" href="/"><img class="site logo" src="/CL_logo1.png" alt /><span class="site name">Data blog</span></a></span>
         <span class="header right-side"><div class="nav wrap"><nav class="nav"><a class="nav item" href="/categories/">Categories</a><a class="nav item" href="/tags/">Tags</a></nav></div></span></div></section><section id="content"><div class="article-container"><section class="article header">
@@ -162,7 +162,7 @@ temp_cc2.columns.values.tolist()</code></pre>
 <li id="fn1"><p>데이터베이스에서 각 행은 Record라 부르며, 이 행들의 모임들을 Record Set이라고 부릅니다. 즉, 데이터 베이스에서는 데이터 프레임을 Record Set 이라고도 부릅니다.<a href="#fnref1" class="footnote-back">↩</a></p></li>
 <li id="fn2"><p>색연필을 제작하는 공장을 예를 들어 봅시다. 제작한 제품중 임의로 10개의 연필을 선택하여 제품이 잘 생산되었는지 검사할 경우 관찰 대상은 10개의 연필이며, 각 연필별로 굵기, 색상, 두께 등은 관찰하고자 하는 속성입니다. 이제 이를 저장하면 10개의 행을 가지며 굵기, 색상, 두께 3개의 열을 갖는 구조로 저장합니다.<a href="#fnref2" class="footnote-back">↩</a></p></li>
 <li id="fn3"><p>대표적으로 Rstudio 개발팀에서 제공하는 <code>tidyverse</code> 패키지에 포함되어 있는 <a href="https://tibble.tidyverse.org/"><code>tibble</code></a> 패키지<a href="#fnref3" class="footnote-back">↩</a></p></li>
-<li id="fn4"><p>기본적으로 Python에서 아예 사용할 수 없다는 것이 아니라, 데이터 프레임이라는 형태를 직접 하지는 않는다는 의미입니다. 소개하는 <code>pandas</code>가 제공하는 데이터 프레임을 사용하지 않을 경우 Python에서는 열들을 개별 리스트로 접근하여 데이터를 처리할 수 있습니다.<a href="#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>기본적으로 Python에서 사용할 수 없다는 것이 아니라, 데이터 프레임이라는 형태를 직접 하지는 않는다는 의미입니나(기본적으로 Python의 자료구조는 List, Tuple, Dictionary, Set 입니다). 문서에서 소개하는 <code>pandas</code>가 제공하는 데이터 프레임을 사용하지 않을 경우 Python에서는 열들을 개별 리스트로 접근하여 데이터를 처리할 수 있습니다.<a href="#fnref4" class="footnote-back">↩</a></p></li>
 <li id="fn5"><p><a href="https://pandas.pydata.org/">pandas 홈페이지</a><a href="#fnref5" class="footnote-back">↩</a></p></li>
 <li id="fn6"><p>설정구간을 1950년 1월 1일로 하였으나, 춘천의 경우 1966년 1월 1일 자료부터 존재하며, 기상자료개방포털에서 춘천은 북춘천과 춘천 두 군데가 존재하며 이중 춘천으로 지역을 설정하였습니다.<a href="#fnref6" class="footnote-back">↩</a></p></li>
 <li id="fn7"><p>Comma Separated Value의 약자로 열 구분을 콤마(,)로 하는 데이터를 일반 텍스트 파일로 저장하는 대표적인 방법입니다.<a href="#fnref7" class="footnote-back">↩</a></p></li>
