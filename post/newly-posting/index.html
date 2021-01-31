@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en"><meta charset="utf-8"><meta name="generator" content="Hugo 0.73.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<html lang="en"><meta charset="utf-8"><meta name="generator" content="Hugo 0.80.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<meta name="supported-color-schemes" content="light dark"><title>Excel로 저장된 주민등록 인구수를 R로 읽어 tidy 데이터로 변환하기&nbsp;&ndash;&nbsp;Data blog</title><link rel="stylesheet" href="/css/core.min.e77dae1a6ab36338edb85b9a0ce112e5c0b04be42f38e62bfac666db5c6cd7b898414552a5cccbcfb566a0ff058434b6.css" integrity="sha384-532uGmqzYzjtuFuaDOES5cCwS&#43;QvOOYr&#43;sZm21xs17iYQUVSpczLz7VmoP8FhDS2"><meta name="twitter:card" content="summary" />
+<meta name="supported-color-schemes" content="light dark"><title>Excel로 저장된 주민등록 인구수를 R로 읽어 tidy 데이터로 변환하기&nbsp;&ndash;&nbsp;Data blog</title><link rel="stylesheet" href="/css/core.min.af5399da4b28864b449582b25e1cecabe5ffbf8d3dba740f0f0ccb5ccceaf03ee5aa7dba6e367c80f56867cc0ef70785.css" integrity="sha384-r1OZ2ksohktElYKyXhzsq&#43;X/v409unQPDwzLXMzq8D7lqn26bjZ8gPVoZ8wO9weF"><meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Excel로 저장된 주민등록 인구수를 R로 읽어 tidy 데이터로 변환하기" /><body><section id="header">
     <div class="header wrap"><span class="header left-side"><a class="site home" href="/"><img class="site logo" src="/CL_logo1.png" alt /><span class="site name">Data blog</span></a></span>
         <span class="header right-side"><div class="nav wrap"><nav class="nav"><a class="nav item" href="/categories/">Categories</a><a class="nav item" href="/tags/">Tags</a></nav></div></span></div></section><section id="content"><div class="article-container"><section class="article header">
@@ -54,15 +54,15 @@
 </ul>
 <pre class="r"><code>dat1</code></pre>
 <pre><code>## # A tibble: 6 x 209
-##   `※ 매년 말일자 통계 현황~ ...2  ...3  ...4  ...5  ...6  ...7  ...8  ...9  ...10 ...11
+##   `※ 매년 말일자 통계 현황… ...2  ...3  ...4  ...5  ...6  ...7  ...8  ...9  ...10 ...11
 ##   &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
-## 1 &lt;NA&gt;             &lt;NA&gt;  2008~ &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 
+## 1 &lt;NA&gt;             &lt;NA&gt;  2008… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 
 ## 2 &lt;NA&gt;             &lt;NA&gt;  계    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 
-## 3 행정기관코드     행정기관~ 총 인구~ 연령구간~ 0~4세 5~9세 10~1~ 15~1~ 20~2~ 25~2~ 30~3~
-## 4 4211000000       강원도 ~ 2619~ 2619~ 11381 15326 18927 18260 17214 19038 17812
-## 5 4211025000       강원도 ~ 7531  7531  264   289   353   433   459   481   462  
-## 6 4211031000       강원도 ~ 6025  6025  284   331   333   375   376   381   372  
-## # ... with 198 more variables: ...12 &lt;chr&gt;, ...13 &lt;chr&gt;, ...14 &lt;chr&gt;,
+## 3 행정기관코드     행정기관… 총 인구… 연령구간… 0~4세 5~9세 10~1… 15~1… 20~2… 25~2… 30~3…
+## 4 4211000000       강원도 … 2619… 2619… 11381 15326 18927 18260 17214 19038 17812
+## 5 4211025000       강원도 … 7531  7531  264   289   353   433   459   481   462  
+## 6 4211031000       강원도 … 6025  6025  284   331   333   375   376   381   372  
+## # … with 198 more variables: ...12 &lt;chr&gt;, ...13 &lt;chr&gt;, ...14 &lt;chr&gt;,
 ## #   ...15 &lt;chr&gt;, ...16 &lt;chr&gt;, ...17 &lt;chr&gt;, ...18 &lt;chr&gt;, ...19 &lt;chr&gt;,
 ## #   ...20 &lt;chr&gt;, ...21 &lt;chr&gt;, ...22 &lt;chr&gt;, ...23 &lt;chr&gt;, ...24 &lt;chr&gt;,
 ## #   ...25 &lt;chr&gt;, ...26 &lt;chr&gt;, ...27 &lt;chr&gt;, ...28 &lt;chr&gt;, ...29 &lt;chr&gt;,
@@ -82,7 +82,7 @@
 ## #   ...95 &lt;chr&gt;, ...96 &lt;chr&gt;, ...97 &lt;chr&gt;, ...98 &lt;chr&gt;, ...99 &lt;chr&gt;,
 ## #   ...100 &lt;chr&gt;, ...101 &lt;chr&gt;, ...102 &lt;chr&gt;, ...103 &lt;chr&gt;, ...104 &lt;chr&gt;,
 ## #   ...105 &lt;chr&gt;, ...106 &lt;chr&gt;, ...107 &lt;chr&gt;, ...108 &lt;chr&gt;, ...109 &lt;chr&gt;,
-## #   ...110 &lt;chr&gt;, ...111 &lt;chr&gt;, ...</code></pre>
+## #   ...110 &lt;chr&gt;, ...111 &lt;chr&gt;, …</code></pre>
 </div>
 <div id="열-이름-재지정하기" class="section level3">
 <h3>열 이름 재지정하기</h3>
@@ -303,19 +303,19 @@ var_names &lt;- paste(years, grps, vars, sep=&quot;_&quot;)</code></pre>
 ## * ...</code></pre>
 <pre class="r"><code>dat</code></pre>
 <pre><code>## # A tibble: 26 x 209
-##    행정기관코드 행정기관 `총 인구수...3` 연령구간인구수...4~ `0~4세...5`
+##    행정기관코드 행정기관 `총 인구수...3` 연령구간인구수...4… `0~4세...5`
 ##    &lt;chr&gt;        &lt;chr&gt;              &lt;dbl&gt;            &lt;dbl&gt;       &lt;dbl&gt;
-##  1 4211000000   강원도 춘천시~          261975           261975       11381
-##  2 4211025000   강원도 춘천시~            7531             7531         264
-##  3 4211031000   강원도 춘천시~            6025             6025         284
-##  4 4211032000   강원도 춘천시~            1613             1613          38
-##  5 4211033000   강원도 춘천시~            2603             2603          58
-##  6 4211034000   강원도 춘천시~            1130             1130          27
-##  7 4211035000   강원도 춘천시~            4151             4151         109
-##  8 4211036000   강원도 춘천시~            2600             2600          55
-##  9 4211038000   강원도 춘천시~             886              886          10
-## 10 4211039000   강원도 춘천시~           10585            10585         642
-## # ... with 16 more rows, and 204 more variables: `5~9세...6` &lt;dbl&gt;,
+##  1 4211000000   강원도 춘천시…          261975           261975       11381
+##  2 4211025000   강원도 춘천시…            7531             7531         264
+##  3 4211031000   강원도 춘천시…            6025             6025         284
+##  4 4211032000   강원도 춘천시…            1613             1613          38
+##  5 4211033000   강원도 춘천시…            2603             2603          58
+##  6 4211034000   강원도 춘천시…            1130             1130          27
+##  7 4211035000   강원도 춘천시…            4151             4151         109
+##  8 4211036000   강원도 춘천시…            2600             2600          55
+##  9 4211038000   강원도 춘천시…             886              886          10
+## 10 4211039000   강원도 춘천시…           10585            10585         642
+## # … with 16 more rows, and 204 more variables: `5~9세...6` &lt;dbl&gt;,
 ## #   `10~14세...7` &lt;dbl&gt;, `15~19세...8` &lt;dbl&gt;, `20~24세...9` &lt;dbl&gt;,
 ## #   `25~29세...10` &lt;dbl&gt;, `30~34세...11` &lt;dbl&gt;, `35~39세...12` &lt;dbl&gt;,
 ## #   `40~44세...13` &lt;dbl&gt;, `45~49세...14` &lt;dbl&gt;, `50~54세...15` &lt;dbl&gt;,
@@ -348,7 +348,7 @@ var_names &lt;- paste(years, grps, vars, sep=&quot;_&quot;)</code></pre>
 ## #   이상...94` &lt;dbl&gt;, `총 인구수...95` &lt;dbl&gt;, 연령구간인구수...96 &lt;dbl&gt;,
 ## #   `0~4세...97` &lt;dbl&gt;, `5~9세...98` &lt;dbl&gt;, `10~14세...99` &lt;dbl&gt;,
 ## #   `15~19세...100` &lt;dbl&gt;, `20~24세...101` &lt;dbl&gt;, `25~29세...102` &lt;dbl&gt;,
-## #   `30~34세...103` &lt;dbl&gt;, `35~39세...104` &lt;dbl&gt;, `40~44세...105` &lt;dbl&gt;, ...</code></pre>
+## #   `30~34세...103` &lt;dbl&gt;, `35~39세...104` &lt;dbl&gt;, `40~44세...105` &lt;dbl&gt;, …</code></pre>
 <ul>
 <li>만일 변수명을 데이터로부터 읽지 않으려면 다음과 같이 한다.
 <ul>
@@ -368,17 +368,17 @@ var_names &lt;- paste(years, grps, vars, sep=&quot;_&quot;)</code></pre>
 <pre><code>## # A tibble: 26 x 209
 ##    ...1  ...2    ...3   ...4  ...5  ...6  ...7  ...8  ...9 ...10 ...11 ...12
 ##    &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1 4211~ 강원도 ~ 261975 261975 11381 15326 18927 18260 17214 19038 17812 22623
-##  2 4211~ 강원도 ~   7531   7531   264   289   353   433   459   481   462   500
-##  3 4211~ 강원도 ~   6025   6025   284   331   333   375   376   381   372   483
-##  4 4211~ 강원도 ~   1613   1613    38    48    58    74   110    87    55    80
-##  5 4211~ 강원도 ~   2603   2603    58    76   135   163   193   158   112   156
-##  6 4211~ 강원도 ~   1130   1130    27    22    25    38    53    61    43    53
-##  7 4211~ 강원도 ~   4151   4151   109   127   155   229   219   216   173   193
-##  8 4211~ 강원도 ~   2600   2600    55    90   117   146   148   128    85   129
-##  9 4211~ 강원도 ~    886    886    10    14    26    50    35    27    25    38
-## 10 4211~ 강원도 ~  10585  10585   642   670   714   620   589   788   882  1018
-## # ... with 16 more rows, and 197 more variables: ...13 &lt;dbl&gt;, ...14 &lt;dbl&gt;,
+##  1 4211… 강원도 … 261975 261975 11381 15326 18927 18260 17214 19038 17812 22623
+##  2 4211… 강원도 …   7531   7531   264   289   353   433   459   481   462   500
+##  3 4211… 강원도 …   6025   6025   284   331   333   375   376   381   372   483
+##  4 4211… 강원도 …   1613   1613    38    48    58    74   110    87    55    80
+##  5 4211… 강원도 …   2603   2603    58    76   135   163   193   158   112   156
+##  6 4211… 강원도 …   1130   1130    27    22    25    38    53    61    43    53
+##  7 4211… 강원도 …   4151   4151   109   127   155   229   219   216   173   193
+##  8 4211… 강원도 …   2600   2600    55    90   117   146   148   128    85   129
+##  9 4211… 강원도 …    886    886    10    14    26    50    35    27    25    38
+## 10 4211… 강원도 …  10585  10585   642   670   714   620   589   788   882  1018
+## # … with 16 more rows, and 197 more variables: ...13 &lt;dbl&gt;, ...14 &lt;dbl&gt;,
 ## #   ...15 &lt;dbl&gt;, ...16 &lt;dbl&gt;, ...17 &lt;dbl&gt;, ...18 &lt;dbl&gt;, ...19 &lt;dbl&gt;,
 ## #   ...20 &lt;dbl&gt;, ...21 &lt;dbl&gt;, ...22 &lt;dbl&gt;, ...23 &lt;dbl&gt;, ...24 &lt;dbl&gt;,
 ## #   ...25 &lt;dbl&gt;, ...26 &lt;dbl&gt;, ...27 &lt;dbl&gt;, ...28 &lt;dbl&gt;, ...29 &lt;dbl&gt;,
@@ -398,7 +398,7 @@ var_names &lt;- paste(years, grps, vars, sep=&quot;_&quot;)</code></pre>
 ## #   ...95 &lt;dbl&gt;, ...96 &lt;dbl&gt;, ...97 &lt;dbl&gt;, ...98 &lt;dbl&gt;, ...99 &lt;dbl&gt;,
 ## #   ...100 &lt;dbl&gt;, ...101 &lt;dbl&gt;, ...102 &lt;dbl&gt;, ...103 &lt;dbl&gt;, ...104 &lt;dbl&gt;,
 ## #   ...105 &lt;dbl&gt;, ...106 &lt;dbl&gt;, ...107 &lt;dbl&gt;, ...108 &lt;dbl&gt;, ...109 &lt;dbl&gt;,
-## #   ...110 &lt;dbl&gt;, ...111 &lt;dbl&gt;, ...112 &lt;dbl&gt;, ...</code></pre>
+## #   ...110 &lt;dbl&gt;, ...111 &lt;dbl&gt;, ...112 &lt;dbl&gt;, …</code></pre>
 </div>
 <div id="변수명-재정의하기" class="section level3">
 <h3>변수명 재정의하기</h3>
@@ -516,45 +516,58 @@ names( dat )</code></pre>
 <h2>tidy 데이터로 변환하기기</h2>
 <div id="wide2long" class="section level3">
 <h3>wide2long</h3>
-<p><code>tidyverse</code> 패키지 (내의 <code>dplyr</code> 패키지)에서 제공하는 함수 <code>gather()</code>는 wide format 데이터를 long format 데이터로 변환하는 기능을 한다. 이 함수를 이용하여 위의 데이터를 long format 데이터로 변환해 보자.</p>
+<p><code>tidyverse</code> 패키지 (내의 <code>tidyr</code> 패키지)에서 제공하는 함수 <code>pivot_long()</code>는 wide format 데이터를 long format 데이터로 변환하는 기능을 한다. 이 함수를 이용하여 위의 데이터를 long format 데이터로 변환하겠습니다.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p><code>pivot_longer()</code>함수의 주요 인수는 다음과 같습니다.</p>
+<ul>
+<li>첫번째 인수 : 데이터 (여기서는 <strong>%&gt;%</strong>으로 전달)</li>
+<li>두번째 인수 : (해당 데이터에서 long format으로) 변환할 열</li>
+<li><strong>names_to</strong> 인수 : 변환후 기존 열 이름을 값으로 하는 열 이름</li>
+<li><strong>values_to</strong> 인수 : 변환후 기존 값이 저장될 열 이름</li>
+</ul>
 <pre class="r"><code>dat %&gt;%
-  gather(key=&quot;age_grp&quot;, value=&quot;pops&quot;, -(1:2))</code></pre>
+  pivot_longer(-(1:2), names_to=&quot;age_grp&quot;, values_to=&quot;pops&quot;)</code></pre>
 <pre><code>## # A tibble: 5,382 x 4
-##    code       region               age_grp               pops
-##    &lt;chr&gt;      &lt;chr&gt;                &lt;chr&gt;                &lt;dbl&gt;
-##  1 4211000000 강원도 춘천시        2008년_계_총 인구수 261975
-##  2 4211025000 강원도 춘천시 신북읍 2008년_계_총 인구수   7531
-##  3 4211031000 강원도 춘천시 동면   2008년_계_총 인구수   6025
-##  4 4211032000 강원도 춘천시 동산면 2008년_계_총 인구수   1613
-##  5 4211033000 강원도 춘천시 신동면 2008년_계_총 인구수   2603
-##  6 4211034000 강원도 춘천시 남면   2008년_계_총 인구수   1130
-##  7 4211035000 강원도 춘천시 서면   2008년_계_총 인구수   4151
-##  8 4211036000 강원도 춘천시 사북면 2008년_계_총 인구수   2600
-##  9 4211038000 강원도 춘천시 북산면 2008년_계_총 인구수    886
-## 10 4211039000 강원도 춘천시 동내면 2008년_계_총 인구수  10585
-## # ... with 5,372 more rows</code></pre>
+##    code       region        age_grp                    pops
+##    &lt;chr&gt;      &lt;chr&gt;         &lt;chr&gt;                     &lt;dbl&gt;
+##  1 4211000000 강원도 춘천시 2008년_계_총 인구수      261975
+##  2 4211000000 강원도 춘천시 2008년_계_연령구간인구수 261975
+##  3 4211000000 강원도 춘천시 2008년_계_0~4세           11381
+##  4 4211000000 강원도 춘천시 2008년_계_5~9세           15326
+##  5 4211000000 강원도 춘천시 2008년_계_10~14세         18927
+##  6 4211000000 강원도 춘천시 2008년_계_15~19세         18260
+##  7 4211000000 강원도 춘천시 2008년_계_20~24세         17214
+##  8 4211000000 강원도 춘천시 2008년_계_25~29세         19038
+##  9 4211000000 강원도 춘천시 2008년_계_30~34세         17812
+## 10 4211000000 강원도 춘천시 2008년_계_35~39세         22623
+## # … with 5,372 more rows</code></pre>
 </div>
 <div id="필요한-열-생성하기" class="section level3">
 <h3>필요한 열 생성하기</h3>
-<p>마지막으로 위에서 생성한 <code>age_grp</code>열의 값을 <code>separate()</code> 함수를 이용하여 언더스코어(_)를 분리자로 기존 열의 값을 분리하고 지정한 각 열에 배치하는 것으로 이 과정을 통해 Excel로 저장된 주민등록 데이터를 R에서 읽고 분석에 조금 용이하게 하기 위해 tidy 데이터 유형으로 변경하였다.</p>
+<p>마지막으로 위에서 생성한 <code>age_grp</code>열의 값을 <code>separate()</code> 함수를 이용하여 밑줄문자(_, underscore)를 분리자로 기존 열의 값을 분리하고 <strong>into</strong> 인수로 지정한 각 열에 배치합니다.</p>
 <pre class="r"><code>dat %&gt;%
-  gather(key=&quot;age_grp&quot;, value=&quot;pops&quot;, -(1:2)) %&gt;%
+  pivot_longer(-(1:2), names_to=&quot;age_grp&quot;, values_to=&quot;pops&quot;) %&gt;%
   separate(age_grp, into=c(&quot;year&quot;, &quot;grp&quot;, &quot;age_grp&quot;), sep=&quot;_&quot;)</code></pre>
 <pre><code>## # A tibble: 5,382 x 6
-##    code       region               year   grp   age_grp     pops
-##    &lt;chr&gt;      &lt;chr&gt;                &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt;
-##  1 4211000000 강원도 춘천시        2008년 계    총 인구수 261975
-##  2 4211025000 강원도 춘천시 신북읍 2008년 계    총 인구수   7531
-##  3 4211031000 강원도 춘천시 동면   2008년 계    총 인구수   6025
-##  4 4211032000 강원도 춘천시 동산면 2008년 계    총 인구수   1613
-##  5 4211033000 강원도 춘천시 신동면 2008년 계    총 인구수   2603
-##  6 4211034000 강원도 춘천시 남면   2008년 계    총 인구수   1130
-##  7 4211035000 강원도 춘천시 서면   2008년 계    총 인구수   4151
-##  8 4211036000 강원도 춘천시 사북면 2008년 계    총 인구수   2600
-##  9 4211038000 강원도 춘천시 북산면 2008년 계    총 인구수    886
-## 10 4211039000 강원도 춘천시 동내면 2008년 계    총 인구수  10585
-## # ... with 5,372 more rows</code></pre>
+##    code       region        year   grp   age_grp          pops
+##    &lt;chr&gt;      &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;           &lt;dbl&gt;
+##  1 4211000000 강원도 춘천시 2008년 계    총 인구수      261975
+##  2 4211000000 강원도 춘천시 2008년 계    연령구간인구수 261975
+##  3 4211000000 강원도 춘천시 2008년 계    0~4세           11381
+##  4 4211000000 강원도 춘천시 2008년 계    5~9세           15326
+##  5 4211000000 강원도 춘천시 2008년 계    10~14세         18927
+##  6 4211000000 강원도 춘천시 2008년 계    15~19세         18260
+##  7 4211000000 강원도 춘천시 2008년 계    20~24세         17214
+##  8 4211000000 강원도 춘천시 2008년 계    25~29세         19038
+##  9 4211000000 강원도 춘천시 2008년 계    30~34세         17812
+## 10 4211000000 강원도 춘천시 2008년 계    35~39세         22623
+## # … with 5,372 more rows</code></pre>
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>기존에 <code>gather()</code>함수를 이용한 변환을 2021년 1월 31일에 <code>tidyr</code> 패키지의 <code>pivot_longer()</code> 함수를 이용하는 것으로 수정하였습니다. 이는 <code>tidyverse</code> 패키지에서 <code>gather()</code>의 사용단계가 retired로 전환하였기 때문입니다.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
 </article><section class="article labels"><a class="category" href=/categories/r-%ED%99%9C%EC%9A%A9/>R - 활용</a><a class="tag" href=/tags/data-preparation/>data preparation</a><a class="tag" href=/tags/excel%EC%9D%BD%EA%B8%B0/>Excel읽기</a><a class="tag" href=/tags/r/>R</a><a class="tag" href=/tags/tidy/>tidy</a><a class="tag" href=/tags/%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%84%EC%B2%98%EB%A6%AC/>데이터 전처리</a></section></div>
 <div class="article bottom"><section class="article navigation"><p><a class="link" href="/post/date_time_in_r/"><span class="iconfont icon-article"></span>R에서 날짜와 시간</a></p></section></div></section><section id="footer"><div class="footer-wrap">
