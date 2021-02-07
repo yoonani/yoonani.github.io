@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html lang="en"><meta charset="utf-8"><meta name="generator" content="Hugo 0.80.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="color-scheme" content="light dark">
-<meta name="supported-color-schemes" content="light dark"><title>정규표현식 - 첫번째&nbsp;&ndash;&nbsp;Data blog</title><link rel="stylesheet" href="/css/core.min.af5399da4b28864b449582b25e1cecabe5ffbf8d3dba740f0f0ccb5ccceaf03ee5aa7dba6e367c80f56867cc0ef70785.css" integrity="sha384-r1OZ2ksohktElYKyXhzsq&#43;X/v409unQPDwzLXMzq8D7lqn26bjZ8gPVoZ8wO9weF"><meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="정규표현식 - 첫번째" /><body><section id="header">
-    <div class="header wrap"><span class="header left-side"><a class="site home" href="/"><img class="site logo" src="/CL_logo1.png" alt /><span class="site name">Data blog</span></a></span>
-        <span class="header right-side"><div class="nav wrap"><nav class="nav"><a class="nav item" href="/categories/">Categories</a><a class="nav item" href="/tags/">Tags</a></nav></div></span></div></section><section id="content"><div class="article-container"><section class="article header">
-    <h1 class="article title">정규표현식 - 첫번째</h1><p class="article date">2020-07-27</p></section><article class="article markdown-body">
+<script src="2020-07-27-regularexpression-in-r-with-stringr_files/header-attrs-2.6/header-attrs.js"></script>
 
 <div id="TOC">
 <ul>
 <li><a href="#정규표현식regular-expression">정규표현식(Regular Expression)</a></li>
-<li><a href="#r에서-정규표현식">R에서 정규표현식</a><ul>
+<li><a href="#r에서-정규표현식">R에서 정규표현식</a>
+<ul>
 <li><a href="#주어진-패턴을-포함하는-문자열">주어진 패턴을 포함하는 문자열</a></li>
 <li><a href="#이스케이프-문자">이스케이프 문자</a></li>
 <li><a href="#문자의-반복">문자의 반복</a></li>
@@ -138,7 +132,7 @@ expression</code></pre>
 <pre><code>## [1] &quot;y = ax + b&quot; &quot;y = a^x&quot;</code></pre>
 <p>사칙연산을 포함하는 문자열을 찾기 위해 다음과 같이 합시다.</p>
 <pre class="r"><code>str_detect(expression, &quot;[+-*/]&quot;)</code></pre>
-<pre><code>## Error in stri_detect_regex(string, pattern, negate = negate, opts_regex = opts(pattern)): In a character range [x-y], x is greater than y. (U_REGEX_INVALID_RANGE)</code></pre>
+<pre><code>## Error in stri_detect_regex(string, pattern, negate = negate, opts_regex = opts(pattern)): In a character range [x-y], x is greater than y. (U_REGEX_INVALID_RANGE, context=`[+-*/]`)</code></pre>
 <p>보시는 바와 같이 R이 에러가 발생했다고 보고하고 있습니다.
 이를 다음과 같이 바꿔봅시다.</p>
 <ul>
@@ -344,28 +338,8 @@ str_extract_all(str, &quot;\\d&quot;)</code></pre>
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>정규표현식을 위한 표준은 크게 POSIX 방식과 프로그래밍 언어인 PERL로 부터 제안한 <a href="https://en.wikipedia.org/wiki/Perl_Compatible_Regular_Expressions">PCRE (Perl Compatible Regular Expressions)</a>의 두 가지가 있습니다.<a href="#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>RStudio 팀의 문서를 보시면 더욱 많은 내용이 있습니다. <a href="https://stringr.tidyverse.org/articles/regular-expressions.html#repetition">RSrtudio팀의 stringr 에서의 정규표현식 문서 중 반복</a><a href="#fnref2" class="footnote-back">↩</a></p></li>
-<li id="fn3"><p><a href="http://www.unicode.org/reports/tr44/#Property_Index">Unicode Property</a><a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn1"><p>정규표현식을 위한 표준은 크게 POSIX 방식과 프로그래밍 언어인 PERL로 부터 제안한 <a href="https://en.wikipedia.org/wiki/Perl_Compatible_Regular_Expressions">PCRE (Perl Compatible Regular Expressions)</a>의 두 가지가 있습니다.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>RStudio 팀의 문서를 보시면 더욱 많은 내용이 있습니다. <a href="https://stringr.tidyverse.org/articles/regular-expressions.html#repetition">RSrtudio팀의 stringr 에서의 정규표현식 문서 중 반복</a><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p><a href="http://www.unicode.org/reports/tr44/#Property_Index">Unicode Property</a><a href="#fnref3" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
-</article><section class="article labels"><a class="category" href=/categories/r-%EA%B8%B0%EC%B4%88/>R - 기초</a><a class="tag" href=/tags/strings/>strings</a><a class="tag" href=/tags/character/>character</a><a class="tag" href=/tags/regular_expression/>regular_expression</a><a class="tag" href=/tags/%EC%A0%95%EA%B7%9C%ED%91%9C%ED%98%84%EC%8B%9D/>정규표현식</a><a class="tag" href=/tags/%EB%AC%B8%EC%9E%90%EC%97%B4/>문자열</a></section></div>
-<div class="article bottom"><section class="article navigation"><p><a class="link" href="/post/dataframeinrandpython_1/"><span class="iconfont icon-article"></span>R과 Python에서 데이터 프레임 (I)</a></p><p><a class="link" href="/post/date_time_in_r/"><span class="iconfont icon-article"></span>R에서 날짜와 시간</a></p></section></div></section><section id="footer"><div class="footer-wrap">
-    <p class="copyright">BY-SA under CCL V3</p>
-    <p class="powerby"><span>Powered&nbsp;by&nbsp;</span><a href="https://gohugo.io" 
-        target="_blank">Hugo</a><span>&nbsp;&amp;&nbsp;</span><a href="https://themes.gohugo.io/hugo-notepadium/" 
-        target="_blank">Notepadium</a></p>
-    <p class="copyright"><span>Email&nbsp;<a href="mailto:yoonani@culture-lab.kr">yoonani@culture-lab.kr</a></span></p></div></section>
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-173269490-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-</body>
-
-</html>
