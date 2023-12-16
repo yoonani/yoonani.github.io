@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>R - 활용 on Data blog</title>
-    <link>/categories/r-%ED%99%9C%EC%9A%A9/</link>
-    <description>Recent content in R - 활용 on Data blog</description>
+    <title>공공데이터포털 on Data blog</title>
+    <link>/tags/%EA%B3%B5%EA%B3%B5%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%8F%AC%ED%84%B8/</link>
+    <description>Recent content in 공공데이터포털 on Data blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
     <copyright>BY-SA under CCL V3</copyright>
     <lastBuildDate>Sun, 07 Feb 2021 00:00:00 +0000</lastBuildDate>
     
-        <atom:link href="/categories/r-%ED%99%9C%EC%9A%A9/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="/tags/%EA%B3%B5%EA%B3%B5%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%8F%AC%ED%84%B8/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -19,16 +19,6 @@
       
       <guid>/post/2021-02-07-openapi/</guid>
       <description>OpenAPI 이용하기 오픈 API(Open Application Programming Interface, Open API, 공개 API)는 누구나 사용할 수 있도록 공개된 API를 말하며, 개발자에게 사유 응용 소프트웨어나 웹 서비스에 프로그래밍적인 권한</description>
-      
-    </item>
-    
-    <item>
-      <title>Excel로 저장된 주민등록 인구수를 R로 읽어 tidy 데이터로 변환하기</title>
-      <link>/post/newly-posting/</link>
-      <pubDate>Wed, 24 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/post/newly-posting/</guid>
-      <description>데이터 얻기 주민등록 인구 데이터 읽기 열 이름 재지정하기 데이터 다시 읽기 변수명 재정의하기 tidy 데이터로 변환하기기 wide2long 필요한 열 생성하기 춘천시의 읍면동별 인구현황</description>
       
     </item>
     
